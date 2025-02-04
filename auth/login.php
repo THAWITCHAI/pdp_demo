@@ -19,7 +19,7 @@
     </div>
     <h1>release:DEV.2.10</h1>
     <div class="w-1/4 p-[1px] bg-blue-500">
-        <form action="" method="post" class="bg-gray-50 shadow-sm w-full p-[1px]">
+        <form action="check_login.php" method="post" class="bg-gray-50 shadow-sm w-full p-[1px]">
             <div class="w-full h-fit gap-[4px] flex">
                 <button class="shadow-sm cursor-pointer w-full text-start text-[14px] bg-white p-2">Staff</button>
                 <button class="shadow-sm cursor-pointer w-full text-start text-[14px] p-2">Doctor</button>
