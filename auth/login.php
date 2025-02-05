@@ -29,8 +29,8 @@
                     <p class="text-lg text-blue-500 border-b border-gray-200">ระบบสำหรับเจ้าหน้าที่</p>
                 </h1>
                 <div class="flex flex-col gap-2 w-full">
-                    <input required name="username" class="bg-white outline-none ring ring-gray-200  w-full h-[2rem] text-[14px] px-2  rounded-xs" type="text" placeholder="Username">
-                    <input required name="password" class="bg-white outline-none ring ring-gray-200 w-full h-[2rem] text-[14px]  px-2 rounded-xs" type="password" placeholder="Password">
+                    <input required name="appointment_username" class="bg-white outline-none ring ring-gray-200  w-full h-[2rem] text-[14px] px-2  rounded-xs" type="text" placeholder="Username">
+                    <input required name="appointment_password" class="bg-white outline-none ring ring-gray-200 w-full h-[2rem] text-[14px]  px-2 rounded-xs" type="password" placeholder="Password">
                     <div class="w-full p-2 flex justify-end items-center">
                         <button type="submit" class="px-4 py-1 text-white rounded-xs cursor-pointer bg-blue-500 w-1/4">Login</button>
                     </div>

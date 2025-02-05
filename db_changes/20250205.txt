@@ -1,0 +1,6 @@
+CREATE TABLE appointments(
+    appointment_id int(100) NULL AUTO_INCREMENT PRIMARY KEY,
+    appointment_name varchar(255) NULL,
+    appointment_username varchar(255) NULL,
+    appointment_password varchar(255) NULL
+);
