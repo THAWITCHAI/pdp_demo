@@ -1,0 +1,9 @@
+CREATE TABLE appuser (
+    appuser_id INT(100) AUTO_INCREMENT PRIMARY KEY,
+    appuser_name varchar(255) null,
+    appuser_lname varchar(255) null,
+    appuser_username varchar(255) null,
+    appuser_password varchar(255) null
+);
+
+INSERT INTO `pdp_demo`.`appuser` (`appuser_name`, `appuser_lname`, `appuser_username`, `appuser_password`) VALUES ('John', 'Doe', 'admin', 'PDP');

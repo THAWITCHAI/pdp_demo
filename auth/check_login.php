@@ -5,15 +5,15 @@
 <?php
 if ($_POST) {
     // echo $_POST['username'];
-    $data = mysqli_query($conn, "select * from appointments");
+    $data = mysqli_query($conn, "select * from appuser");
     // print_r($data);
     // echo "<br/>";
     $check_username = false;
     while ($row = mysqli_fetch_assoc($data)) {
-        if ($_POST['appointment_username'] == $row['appointment_username'] && $_POST['appointment_password'] == $row['appointment_password']) {
+        if ($_POST['appuser_username'] == $row['appuser_username'] && $_POST['appuser_password'] == $row['appuser_password']) {
             $check_username = true;
-            $_SESSION['username'] = $_POST['appointment_username'];
-            $_SESSION['password'] = $_POST['appointment_password'];
+            $_SESSION['username'] = $_POST['appuser_username'];
+            $_SESSION['password'] = $_POST['appuser_password'];
             header("Location: ../reg/appointments.php");
             break;
         }
