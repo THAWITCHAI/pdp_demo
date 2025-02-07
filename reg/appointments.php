@@ -13,7 +13,7 @@ if (!isset($_SESSION['username'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointment</title>
+    <title>PDP System - Rutnin Eye Hopital</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 
 </head>
@@ -58,7 +58,38 @@ if (!isset($_SESSION['username'])) {
                 </ul>
             </div>
 
-            <div class="w-[86%] bg-white h-full "></div>
+            <div class="w-[86%] bg-white h-full py-[0.5px]">
+                <div class="w-full  h-[2.49rem] text-[14px] flex items-center hover:bg-[#fff] cursor-pointer p-2 bg-[#f8f8f8] ring-1 ring-gray-200">
+                    <a href="#" class="text-blue-600">Home</a>
+                </div>
+                <div class="w-full h-fit p-3">
+                    <h1 class="text-xl text-blue-600 font-light mb-2">Appointment</h1>
+                    <hr class="text-gray-300">
+                    <div class="w-full p-2 ring-1 ring-gray-400 my-5 flex flex-col justify-center items-center gap-2">
+                        <h1 class="w-full p-2 bg-[linear-gradient(to bottom,#ffffff 0%,#eeeeee 100%)] text-blue-500 shadow-xs">Search</h1>
+                        <div class="w-full flex gap-10 justify-center items-center p-2">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                        </div>
+                        <div class="w-full flex gap-10 justify-center items-center p-2">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-full">
+                        </div>
+                        <div class="w-full flex gap-10 justify-start items-center p-2">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-[22.3%]">
+                            <input placeholder="กรุณากรอก" type="text" class="text-sm ring-1 ring-gray-300 h-[2rem] outline-none px-2 rounede-xs  w-[22.3%]">
+                        </div>
+                        <div class="w-full flex gap-10 justify-end items-center p-2">
+                            <input type="button" value="Reset" class="border w-[15.3%]">
+                            <input type="button" value="Search" class="border w-[15.3%]">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

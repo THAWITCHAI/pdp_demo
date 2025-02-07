@@ -12,8 +12,7 @@ if ($_POST) {
     while ($row = mysqli_fetch_assoc($data)) {
         if ($_POST['appuser_username'] == $row['appuser_username'] && $_POST['appuser_password'] == $row['appuser_password']) {
             $check_username = true;
-            $_SESSION['username'] = $_POST['appuser_username'];
-            $_SESSION['password'] = $_POST['appuser_password'];
+            $_SESSION['username'] = strip_tags($row['appuser_name']);
             header("Location: ../reg/appointments.php");
             break;
         }
