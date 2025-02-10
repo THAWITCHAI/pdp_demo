@@ -13,7 +13,7 @@ if ($_POST) {
         if ($_POST['appuser_username'] == $row['appuser_username'] && $_POST['appuser_password'] == $row['appuser_password']) {
             $check_username = true;
             $_SESSION['username'] = strip_tags($row['appuser_name']);
-            header("Location: ../reg/appointments.php");
+            header("Location: ../main/patient_add_universal.php");
             break;
         }
     }

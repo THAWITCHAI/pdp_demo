@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (isset($_SESSION['username'])) {
-    header("Location: ../reg/appointments.php");
+    header("Location: ../main/patient_add_universal.php");
     exit();
 }
 ?>
