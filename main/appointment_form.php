@@ -149,8 +149,7 @@ $age = $birthDate->diff($today)->y; // คำนวณอายุ
                         </div>
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
                             <div class="w-full h-[2.5rem] flex justify-end items-center gap-2">
-                                <button class="w-[20%] text-white py-2 cursor-pointer text-center border border-green-200 bg-green-500">บันทึกข้อมูลนัด</button>
-
+                                <a href="appointment_from_func.php" class="w-[20%] text-white py-2 cursor-pointer text-center border border-green-200 bg-green-500">บันทึกข้อมูลนัด</a>
                             </div>
                         </div>
                     </div>
