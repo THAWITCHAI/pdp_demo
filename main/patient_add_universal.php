@@ -13,7 +13,7 @@ if (!isset($_SESSION['username'])) {
         <? include('../assets/html/navbar' . '.php'); ?>
         <div class="w-full h-[93%] flex justify-center items-center">
             <? include('../assets/html/sidebar' . '.php'); ?>
-            <div class="w-[86%] bg-white h-full py-[0.5px]">
+            <div class="w-[86%] bg-white h-full py-[0.5px] border-l border-gray-200">
                 <div class="w-full  h-[2.48rem] text-[14px] flex items-center hover:bg-[#fff] cursor-pointer p-2 bg-[#f8f8f8] border-y border-gray-200">
                     <a href="patient_add_universal.php" class="text-blue-600">Home</a>
                 </div>

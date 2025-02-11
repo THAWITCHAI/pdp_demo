@@ -12,7 +12,7 @@
                     <a href="patient_add_universal.php" class="text-blue-600">Home</a>
                 </div>
                 <div class="w-full h-fit p-3">
-                    <h1 class="text-xl text-blue-600 font-light mb-2">Pateint <small class="text-gray-500">>></small><small class="px-2">Add</small></h1>
+                    <h1 class="text-xl text-blue-600 font-light mb-2">Pateint <small class="text-gray-500"><i class="fi fi-ts-angle-double-small-right"></i></small><small class="px-2">Add</small></h1>
                     <hr class="text-gray-300">
                 </div>
                 <form action="appointment_form.php" method="post" class="p-2 w-[50%] flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700">
@@ -64,8 +64,8 @@
                         <label for="" class="w-[30%] text-end">Gender :</label>
                         <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                             <option value="">ไม่ระบุ</option>
-                            <option value="">ชาย</option>
-                            <option value="">หญิง</option>
+                            <option value="ชาย">ชาย</option>
+                            <option value="หญิง">หญิง</option>
                         </select>
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
