@@ -1,3 +1,12 @@
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../auth/login.php");
+    exit();
+}
+?>
+<?php require_once('../Connected/connect.php'); ?>
+<? include('../assets/html/header' . '.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <? include('../assets/html/header' . '.php'); ?>
@@ -6,6 +15,11 @@
 $birthDate = new DateTime($_POST['birth_date']);
 $today = new DateTime();
 $age = $birthDate->diff($today)->y; // คำนวณอายุ
+?>
+
+<?php
+mysqli_set_charset($conn, "utf8mb4");
+$rs1 = mysqli_query($conn, "select * from department");
 ?>
 
 <body>
@@ -81,12 +95,17 @@ $age = $birthDate->diff($today)->y; // คำนวณอายุ
                             </div>
                         </div>
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
+                            <?php
+                            mysqli_set_charset($conn, "utf8mb4");
+                            $query_rs_specialty = mysqli_query($conn, "select * from specialty");
+                            ?>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Specify Specialty:</label>
                                 <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <? while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
+                                        <option value="<?= $row["specialty_id"] ?>"><?= $row["specialty_name"] ?></option>
+                                    <? } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
@@ -102,7 +121,7 @@ $age = $birthDate->diff($today)->y; // คำนวณอายุ
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Specify Doctor:</label>
                                 <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                    <option value="">ไม่ระบุ</option>
+                                    <option value="">ไม่เจาะจงแพทย์</option>
                                     <option value="">ชาย</option>
                                     <option value="">หญิง</option>
                                 </select>
@@ -119,9 +138,10 @@ $age = $birthDate->diff($today)->y; // คำนวณอายุ
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Clinic *:</label>
                                 <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                    <option value="">ไม่ระบุ</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <? while ($row = mysqli_fetch_assoc($rs1)) { ?>
+                                        <option value="">ไม่ระบุ</option>
+                                        <option value="<?= $row["department_id"] ?>"><?= $row["department_name"] ?></option>
+                                    <? } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">

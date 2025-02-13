@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "intranet";
-$dbname = "pdp_demo";
+$dbname = "demo_pdp";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
