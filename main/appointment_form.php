@@ -79,15 +79,20 @@ $rs1 = mysqli_query($conn, "select * from department");
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Appointment Type *:</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <?php
+                                mysqli_set_charset($conn, "utf8mb4");
+                                $query_rs_specialty = mysqli_query($conn, "select * from appointment_type where 1=1");
+                                ?>
+                                <select name="appointment_type_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <? while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
+                                        <option value="<?= $row['appointment_type_id'] ?>"><?= $row["appointment_type"] ?></option>
+                                    <? } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Procedure Template:</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <select name="procedure_template_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
                                     <option value="">ชาย</option>
                                     <option value="">หญิง</option>
@@ -101,7 +106,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                             ?>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Specify Specialty:</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <select name="specialty_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
                                     <? while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
                                         <option value="<?= $row["specialty_id"] ?>"><?= $row["specialty_name"] ?></option>
@@ -110,7 +115,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Procedure:</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <select name="procedure_item_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
                                     <option value="">ชาย</option>
                                     <option value="">หญิง</option>
@@ -120,10 +125,25 @@ $rs1 = mysqli_query($conn, "select * from department");
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Specify Doctor:</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <select name="doctor_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่เจาะจงแพทย์</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <?php
+                                    $sql = "
+                                        SELECT 
+                                            t1.*, CONCAT(doctor_code, ' : ', doctor_name) AS full_name
+                                        FROM
+                                            pdp.doctor t1
+                                        WHERE
+                                            is_enable = 'Y'
+                                        AND 
+                                            procedure_item_id = - 1
+                                        ";
+                                    mysqli_set_charset($conn, "utf8mb4");
+                                    $doctor = mysqli_query($conn, $sql);
+                                    while ($row = mysqli_fetch_assoc($doctor)) {
+                                    ?>
+                                        <option value="<?= $row['doctor_id'] ?>"><?= $row['doctor_name'] ?></option>
+                                    <? } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
@@ -137,7 +157,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Clinic *:</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <select name="department_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <? while ($row = mysqli_fetch_assoc($rs1)) { ?>
                                         <option value="">ไม่ระบุ</option>
                                         <option value="<?= $row["department_id"] ?>"><?= $row["department_name"] ?></option>
@@ -152,7 +172,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">เวลาลงทะเบียน:</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <select name="location_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
                                     <option value="">ชาย</option>
                                     <option value="">หญิง</option>
@@ -160,7 +180,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">ไม่ควรเลื่อนเกิน</label>
-                                <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <select name="week_tolerance" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
                                     <option value="">ชาย</option>
                                     <option value="">หญิง</option>

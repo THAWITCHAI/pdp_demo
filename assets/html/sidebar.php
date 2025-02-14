@@ -20,4 +20,9 @@
             <button class="cursor-pointer">Specialty</button>
         </ul>
     </a>
+    <a href="../main/appointment_type.php" class="w-full h-[2.5rem] text-[14px] flex items-center hover:bg-blue-50 pl-10 cursor-pointer p-2 bg-[#fff] border-b border-gray-200">
+        <ul>
+            <button class="cursor-pointer">Appointment Type</button>
+        </ul>
+    </a>
 </div>
