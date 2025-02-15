@@ -1,5 +1,5 @@
 <?php
-session_start();
+    // session_start();
 if (!isset($_SESSION['username'])) {
     header("Location: ../auth/login.php");
     exit();
@@ -11,9 +11,8 @@ if (!isset($_SESSION['username'])) {
         <div class="w-1/2 h-full flex justify-center items-center">
             <img src="../assets/images/user_white.png" width="40" height="40" alt="">
         </div>
-
-        <div class="w-1/2 text-white uppercase relative">
-            <button id="dropdownButton" class="focus:outline-none uppercase cursor-pointer">
+        <div class="w-1/2 text-[14px] text-white uppercase relative">
+            <button id="dropdownButton" class="focus:outline-none uppercase cursor-pointer flex justify-center items-center overflow-hidden">
                 <?= $_SESSION['username'] ?>
             </button>
 

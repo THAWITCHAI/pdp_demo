@@ -7,7 +7,7 @@ if (!isset($_SESSION['username'])) {
 ?>
 <?php require_once('../Connected/connect.php'); ?>
 
-<? include('../assets/html/header' . '.php'); ?>
+<?php include('../assets/html/header' . '.php'); ?>
 <?php
 if ($_POST["specialty_name"]) {
     $specialty_name = strval($_POST["specialty_name"]);
@@ -31,13 +31,13 @@ if ($_POST["specialty_name"]) {
 
 <!DOCTYPE html>
 <html lang="en">
-<? include('../assets/html/header' . '.php'); ?>
+<?php include('../assets/html/header' . '.php'); ?>
 
 <body>
     <div class="w-full h-screen">
-        <? include('../assets/html/navbar' . '.php'); ?>
+        <?php include('../assets/html/navbar' . '.php'); ?>
         <div class="w-full h-fit flex justify-center items-start">
-            <? include('../assets/html/sidebar' . '.php'); ?>
+            <?php include('../assets/html/sidebar' . '.php'); ?>
             <div class="w-[86%] border-l border-gray-200 bg-white h-fit py-[0.5px] flex flex-col justify-start items-center">
                 <div href="patient_add_universal.php" class="w-full  h-[2.48rem] text-[14px] flex items-center hover:bg-[#fff] cursor-pointer p-2 bg-[#f8f8f8] border-y border-gray-200">
                     <a class="text-blue-600">Home</a>

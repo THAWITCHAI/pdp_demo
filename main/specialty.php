@@ -67,7 +67,7 @@ WHERE
                                                 <?= $row['specialty_name'] ?>
                                             </td>
                                             <td class="px-5 py-4 ">
-                                                <?= $row['specialty_name_en'] ?>
+                                                <?= $row['<?php include'] ?>
                                             </td>
                                             <td class="px-5 py-4 border-l border-r border-gray-300 gap-2 flex justify-center items-center">
                                                 <a href="./specialty_del.php?specialty_id=<?= $row['specialty_id'] ?>">
