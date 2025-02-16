@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 
 <?php include('../assets/html/header' . '.php'); ?>
 <?php
-if ($_POST["appointment_type"]) {
+if ($_POST) {
     $appointment_type_name = strval($_POST["appointment_type_name"]);
     mysqli_set_charset($conn, "utf8mb4");
     $rs1 = mysqli_query($conn, "INSERT INTO `appointment_type` (`appointment_type`, `is_calculate`, `can_insert`, `slot_ratio`) VALUES ('$_POST[appointment_type]', '$_POST[is_calculate]', '$_POST[can_insert]', '$_POST[slot_ratio]');

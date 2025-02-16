@@ -22,23 +22,23 @@ if (!isset($_SESSION['username'])) {
                     <form method="GET" class="w-full p-2 ring-1 ring-gray-300 my-5 flex flex-col justify-center items-center gap-2">
                         <h1 class="w-full p-2 bg-[linear-gradient(to bottom,#ffffff 0%,#eeeeee 100%)] text-blue-500 shadow-xs">Search</h1>
                         <div class="w-full flex gap-10 justify-center items-center p-2">
-                            <input name="hn" placeholder="HN" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
-                            <input name="first_name" placeholder="First Name" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
-                            <input name="last_name" placeholder="Last Name" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
-                            <span class="flex gap-2 justify-between p-2 items-center ring-1 ring-gray-300  h-[2rem]  w-full">
+                            <input name="hn" placeholder="HN" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full border border-gray-300">
+                            <input name="first_name" placeholder="First Name" type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input name="last_name" placeholder="Last Name" type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <span class="border border-gray-300 flex gap-2 justify-between p-2 items-center ring-1 ring-gray-300  h-[2rem]  w-full">
                                 <label for="" class="text-gray-500">วันเกิด</label>
-                                <input name="birth_date" placeholder="Birth Date" type="date" class="text-sm w-[70%]   outline-none px-2 rounede-xs ">
+                                <input name="birth_date" placeholder="Birth Date" type="date" class="text-sm w-[70%] outline-none px-2 rounede-xs ">
                             </span>
                         </div>
                         <div class="w-full flex gap-10 justify-center items-center p-2">
-                            <input name="age" placeholder="Age." type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
-                            <input name="sex" placeholder="Sex" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
-                            <input name="id_card" placeholder="ID Card" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
-                            <input name="tel" placeholder="Tel/Mobile" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input name="age" placeholder="Age." type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input name="sex" placeholder="Sex" type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input name="id_card" placeholder="ID Card" type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input name="tel" placeholder="Tel/Mobile" type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-full">
                         </div>
                         <div class="w-full flex gap-10 justify-start items-center p-2">
-                            <input name="is_vip" placeholder="Is VIP" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-[22.3%]">
-                            <input name="have_hn" placeholder="Have HN" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-[22.3%]">
+                            <input name="is_vip" placeholder="Is VIP" type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-[22.3%]">
+                            <input name="have_hn" placeholder="Have HN" type="text" class="border border-gray-300 text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-[22.3%]">
                         </div>
                         <div class="w-full flex gap-10 justify-end items-center p-2">
                             <button type="submit" class="text-sm border border-blue-600 w-[12.3%] h-[2rem] rounded-xs bg-blue-400 shadow-lg hover:bg-blue-600 cursor-pointer text-white">Search</button>

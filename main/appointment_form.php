@@ -10,7 +10,6 @@ if (!isset($_SESSION['username'])) {
 <!DOCTYPE html>
 <html lang="en">
 <?php include('../assets/html/header' . '.php'); ?>
-
 <?php
 $birthDate = new DateTime($_POST['birth_date']);
 $today = new DateTime();
@@ -25,9 +24,9 @@ $rs1 = mysqli_query($conn, "select * from department");
 <body>
     <div class="w-full h-screen">
         <?php include('../assets/html/navbar' . '.php'); ?>
-        <div class="w-full h-fit flex justify-center items-start border">
+        <div class="w-full h-full flex justify-center items-start">
             <?php include('../assets/html/sidebar' . '.php'); ?>
-            <div class="border-l border-gray-200 w-[86%] bg-white h-fit py-[0.5px] flex flex-col justify-start items-center">
+            <div class="border-l border-gray-200 w-[86%] bg-white h-full py-[0.5px] flex flex-col justify-start items-center">
                 <div class="w-full  h-[2.48rem] text-[14px] flex items-center hover:bg-[#fff] cursor-pointer p-2 bg-[#f8f8f8] border-y border-gray-200">
                     <a href="patient_add_universal.php" class="text-blue-600">Home</a>
                 </div>
@@ -53,7 +52,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                                     </div>
                                     <div class="text-[14px] border-b border-gray-200 h-[2.5rem] w-full flex justify-center items-center">
                                         <div class="px-2 flex justify-end items-center bg-blue-50 w-[30%] h-full text-blue-500">ชื่อ</div>
-                                        <div class="px-2 flex justify-start items-center w-[100%] h-full"><?= $_POST['first_name'], " ", $_POST["last_name"] ?></div>
+                                        <div class="px-2 flex justify-start items-center w-[100%] h-full"><?= $_POST['first_name'] . " " . $_POST["last_name"] ?></div>
                                     </div>
                                     <div class="text-[14px] border-b border-gray-200 h-[2.5rem] w-full flex justify-center items-center">
                                         <div class="px-2 flex justify-end items-center bg-blue-50 w-[30%] h-full text-blue-500">อายุ</div>
@@ -85,9 +84,9 @@ $rs1 = mysqli_query($conn, "select * from department");
                                 ?>
                                 <select name="appointment_type_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <? while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
+                                    <?php while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
                                         <option value="<?= $row['appointment_type_id'] ?>"><?= $row["appointment_type"] ?></option>
-                                    <? } ?>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
@@ -108,9 +107,9 @@ $rs1 = mysqli_query($conn, "select * from department");
                                 <label for="" class="w-[30%] text-end">Specify Specialty:</label>
                                 <select name="specialty_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <? while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
+                                    <?php while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
                                         <option value="<?= $row["specialty_id"] ?>"><?= $row["specialty_name"] ?></option>
-                                    <? } ?>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
@@ -132,7 +131,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                                         SELECT 
                                             t1.*, CONCAT(doctor_code, ' : ', doctor_name) AS full_name
                                         FROM
-                                            pdp.doctor t1
+                                            doctor t1
                                         WHERE
                                             is_enable = 'Y'
                                         AND 
@@ -140,10 +139,9 @@ $rs1 = mysqli_query($conn, "select * from department");
                                         ";
                                     mysqli_set_charset($conn, "utf8mb4");
                                     $doctor = mysqli_query($conn, $sql);
-                                    while ($row = mysqli_fetch_assoc($doctor)) {
-                                    ?>
+                                    while ($row = mysqli_fetch_assoc($doctor)) { ?>
                                         <option value="<?= $row['doctor_id'] ?>"><?= $row['doctor_name'] ?></option>
-                                    <? } ?>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
@@ -158,10 +156,10 @@ $rs1 = mysqli_query($conn, "select * from department");
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Clinic *:</label>
                                 <select name="department_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                    <? while ($row = mysqli_fetch_assoc($rs1)) { ?>
-                                        <option value="">ไม่ระบุ</option>
+                                    <option value="">ไม่ระบุ</option>
+                                    <?php while ($row = mysqli_fetch_assoc($rs1)) { ?>
                                         <option value="<?= $row["department_id"] ?>"><?= $row["department_name"] ?></option>
-                                    <? } ?>
+                                    <?php } ?>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
@@ -194,7 +192,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                         </div>
                     </div>
                 </div>
-                <!-- <? print_r($_POST) ?> -->
+                <!-- <?php print_r($_POST) ?> -->
 
             </div>
         </div>

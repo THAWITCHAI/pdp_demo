@@ -9,7 +9,7 @@ if (!isset($_SESSION['username'])) {
 
 <?php include('../assets/html/header' . '.php'); ?>
 <?php
-if ($_POST["specialty_name"]) {
+if ($_POST) {
     $specialty_name = strval($_POST["specialty_name"]);
     mysqli_set_charset($conn, "utf8mb4");
     $rs1 = mysqli_query($conn, "INSERT INTO `specialty` (`specialty_name`, `specialty_name_en`, `specialty_remark`) VALUES ('$_POST[specialty_name]', '$_POST[specialty_name_en]', '$_POST[specialty_remark]')");

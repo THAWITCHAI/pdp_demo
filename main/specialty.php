@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <?php require_once('../Connected/connect.php'); ?>
-<? include('../assets/html/header' . '.php'); ?>
+<?php include('../assets/html/header' . '.php'); ?>
 
 <?php
 mysqli_set_charset($conn, "utf8mb4");
@@ -26,9 +26,9 @@ WHERE
 
 <body>
     <div class="w-full h-screen">
-        <? include('../assets/html/navbar' . '.php'); ?>
+        <?php include('../assets/html/navbar' . '.php'); ?>
         <div class="w-full h-[93%] flex justify-center items-center">
-            <? include('../assets/html/sidebar' . '.php'); ?>
+            <?php include('../assets/html/sidebar' . '.php'); ?>
             <div class="w-[86%] bg-white h-full py-[0.5px] border-l border-gray-200">
                 <div class="w-full  h-[2.48rem] text-[14px] flex items-center hover:bg-[#fff] cursor-pointer p-2 bg-[#f8f8f8] border-y border-gray-200">
                     <a href="patient_add_universal.php" class="text-blue-600">Home</a>
@@ -39,7 +39,11 @@ WHERE
                     <form method="GET" class="w-full p-2 ring-1 ring-gray-300 my-5 flex flex-col justify-center items-center gap-2">
                         <h1 class="w-full p-2 bg-[linear-gradient(to bottom,#ffffff 0%,#eeeeee 100%)] text-blue-500 shadow-xs">Search</h1>
                         <div class="w-full flex gap-10 justify-start items-center p-2">
-                            <input value="<?= $_GET["specialty_name"] ?>" name="specialty_name" placeholder="Name" type="text" class="text-sm ring-1 ring-gray-300  h-[2rem] outline-none px-2 rounede-xs  w-1/4">
+                            <?php if ($_GET) { ?>
+                                <input value="<?= $_GET["specialty_name"] ?>" name="specialty_name" placeholder="Name" type="text" class="text-sm h-[2rem] outline-none px-2 rounede-xs border border-gray-300 w-1/4">
+                            <?php } else { ?>
+                                <input value="" name="specialty_name" placeholder="Name" type="text" class="text-sm h-[2rem] outline-none px-2 rounede-xs border border-gray-300 w-1/4">
+                            <?php } ?>
                         </div>
                         <div class="w-full flex gap-10 justify-end items-center p-2">
                             <button type="submit" class="text-sm border border-blue-600 w-[12.3%] h-[2rem] rounded-xs bg-blue-400 shadow-lg hover:bg-blue-600 cursor-pointer text-white">Search</button>
@@ -60,25 +64,36 @@ WHERE
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <? while ($row = mysqli_fetch_assoc($rs1)) { ?>
-                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                    <?php
+                                    if (!$rs1) {
+                                        die("Query failed: " . mysqli_error($conn));
+                                    }
+                                    ?>
+                                    <?php if (mysqli_num_rows($rs1) > 0) { ?>
+                                        <? while ($row = mysqli_fetch_assoc($rs1)) { ?>
+                                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
 
-                                            <td class="px-5 py-4 border border-gray-300">
-                                                <?= $row['specialty_name'] ?>
-                                            </td>
-                                            <td class="px-5 py-4 ">
-                                                <?= $row['<?php include'] ?>
-                                            </td>
-                                            <td class="px-5 py-4 border-l border-r border-gray-300 gap-2 flex justify-center items-center">
-                                                <a href="./specialty_del.php?specialty_id=<?= $row['specialty_id'] ?>">
-                                                    <button class="border border-red-600 hover:bg-red-600 text-[14px] px-2 py-1 bg-red-400 text-white cursor-pointer">Delete</button>
-                                                </a>
-                                                <a href="./specialty_update.php?specialty_id=<?= $row['specialty_id'] ?>">
-                                                    <button class="border border-yellow-600 hover:bg-yellow-600 text-[14px] px-2 py-1 bg-yellow-400 text-white cursor-pointer">Edit</button>
-                                                </a>
-                                            </td>
+                                                <td class="px-5 py-4 border border-gray-300">
+                                                    <?= $row['specialty_name'] ?>
+                                                </td>
+                                                <td class="px-5 py-4 ">
+                                                    <?= $row['<?php include'] ?>
+                                                </td>
+                                                <td class="px-5 py-4 border-l border-r border-gray-300 gap-2 flex justify-center items-center">
+                                                    <a href="./specialty_del.php?specialty_id=<?= $row['specialty_id'] ?>">
+                                                        <button class="border border-red-600 hover:bg-red-600 text-[14px] px-2 py-1 bg-red-400 text-white cursor-pointer">Delete</button>
+                                                    </a>
+                                                    <a href="./specialty_update.php?specialty_id=<?= $row['specialty_id'] ?>">
+                                                        <button class="border border-yellow-600 hover:bg-yellow-600 text-[14px] px-2 py-1 bg-yellow-400 text-white cursor-pointer">Edit</button>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        <? } ?>
+                                    <?php } else { ?>
+                                        <tr>
+                                            <td colspan="3" class="text-center py-4">No Specialty found.</td>
                                         </tr>
-                                    <? } ?>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>

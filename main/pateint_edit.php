@@ -1,5 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<?php
+session_start();
+if (!isset($_SESSION['username'])) {
+    header("Location: ../auth/login.php");
+    exit();
+}
+?>
+<?php require_once('../Connected/connect.php'); ?>
 <?php include('../assets/html/header' . '.php'); ?>
 
 <body>
@@ -15,7 +21,7 @@
                     <h1 class="text-xl text-blue-600 font-light mb-2">Pateint <small class="text-gray-500"><i class="fi fi-ts-angle-double-small-right"></i></small><small class="px-2">Add</small></h1>
                     <hr class="text-gray-300">
                 </div>
-                <form action="appointment_form.php" method="post" class="p-2 w-[50%] flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700">
+                <form action="./appointment_form.php" method="post" class="p-2 w-[50%] flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700">
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Title :</label>
                         <select name="title" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
