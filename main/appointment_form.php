@@ -1,15 +1,6 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
-}
-?>
-<?php require_once('../Connected/connect.php'); ?>
 <?php include('../assets/html/header' . '.php'); ?>
-<!DOCTYPE html>
-<html lang="en">
-<?php include('../assets/html/header' . '.php'); ?>
+
+
 <?php
 $birthDate = new DateTime($_POST['birth_date']);
 $today = new DateTime();
@@ -20,6 +11,8 @@ $age = $birthDate->diff($today)->y; // คำนวณอายุ
 mysqli_set_charset($conn, "utf8mb4");
 $rs1 = mysqli_query($conn, "select * from department");
 ?>
+<!DOCTYPE html>
+<html lang="en">
 
 <body>
     <div class="w-full h-screen">
@@ -40,7 +33,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                         <button class="w-full h-[2rem] border px-3 border-gray-300 bg-blue-100 text-[14px] cursor-pointer font-medium flex justify-start text-blue-500 items-center">Past Appointment</button>
                         <button class="w-full h-[2rem] border px-3 border-gray-300 bg-blue-100 text-[14px] cursor-pointer font-medium flex justify-start text-blue-500 items-center">Cancle</button>
                     </div>
-                    <div class="w-full p-1 flex justify-center items-center gap-3 flex-col h-fit">
+                    <form action="appointment_from_func.php" method="post" class="w-full p-1 flex justify-center items-center gap-3 flex-col h-fit">
                         <div id="detail" class="w-full h-fit border border-gray-200 flex flex-col">
                             <h1 class="text-blue-500 bg-gray-100 w-full h-[2.5rem] border-b border-gray-200 px-2 flex justify-start items-center">ข้อมูลผู้ป่วย</h1>
                             <div class="gap-2 w-full h-full flex justify-between items-start p-3">
@@ -93,8 +86,8 @@ $rs1 = mysqli_query($conn, "select * from department");
                                 <label for="" class="w-[30%] text-end">Procedure Template:</label>
                                 <select name="procedure_template_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <option value="ชาย">ชาย</option>
+                                    <option value="หญิง">หญิง</option>
                                 </select>
                             </div>
                         </div>
@@ -106,7 +99,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Specify Specialty:</label>
                                 <select name="specialty_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                    <option value="">ไม่ระบุ</option>
+                                    <option value="1">ไม่ระบุ</option>
                                     <?php while ($row = mysqli_fetch_assoc($query_rs_specialty)) { ?>
                                         <option value="<?= $row["specialty_id"] ?>"><?= $row["specialty_name"] ?></option>
                                     <?php } ?>
@@ -116,8 +109,8 @@ $rs1 = mysqli_query($conn, "select * from department");
                                 <label for="" class="w-[30%] text-end">Procedure:</label>
                                 <select name="procedure_item_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <option value="ชาย">ชาย</option>
+                                    <option value="หญิง">หญิง</option>
                                 </select>
                             </div>
                         </div>
@@ -125,7 +118,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Specify Doctor:</label>
                                 <select name="doctor_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                    <option value="">ไม่เจาะจงแพทย์</option>
+                                    <option value="1">ไม่เจาะจงแพทย์</option>
                                     <?php
                                     $sql = "
                                         SELECT 
@@ -164,7 +157,7 @@ $rs1 = mysqli_query($conn, "select * from department");
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">Appointment Date *:</label>
-                                <input type="date" name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" />
+                                <input type="date" name="appointment_date" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" />
                             </div>
                         </div>
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
@@ -172,27 +165,40 @@ $rs1 = mysqli_query($conn, "select * from department");
                                 <label for="" class="w-[30%] text-end">เวลาลงทะเบียน:</label>
                                 <select name="location_id" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <option value="ชาย">ชาย</option>
+                                    <option value="หญิง">หญิง</option>
                                 </select>
                             </div>
                             <div class="w-full h-[2.5rem] flex justify-center items-center gap-2">
                                 <label for="" class="w-[30%] text-end">ไม่ควรเลื่อนเกิน</label>
                                 <select name="week_tolerance" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                     <option value="">ไม่ระบุ</option>
-                                    <option value="">ชาย</option>
-                                    <option value="">หญิง</option>
+                                    <option value="ชาย">ชาย</option>
+                                    <option value="หญิง">หญิง</option>
                                 </select>
                             </div>
                         </div>
                         <div class="w-full text-[14px] h-fit flex justify-between items-center gap-5">
+
+                            <input hidden name="title" value="<?= $_POST["title"] ?>" type="text">
+                            <input hidden name="first_name" value="<?= $_POST["first_name"] ?>" type="text">
+                            <input hidden name="last_name" value="<?= $_POST["last_name"] ?>" type="text">
+                            <input hidden name="mobile" value="<?= $_POST["mobile"] ?>" type="text">
+                            <input hidden name="nationality" value="<?= $_POST["nationality"] ?>" type="text">
+                            <input hidden name="birth_date" value="<?= $_POST["birth_date"] ?>" type="text">
+                            <input hidden name="id_card" value="<?= $_POST["id_card"] ?>" type="text">
+                            <input hidden name="email" value="<?= $_POST["email"] ?>" type="text">
+                            <input hidden name="address" value="<?= $_POST["address"] ?>" type="text">
+                            <input hidden name="sex" value="<?= $_POST["sex"] ?>" type="text">
+                            <input hidden name="remark" value="<?= $_POST["remark"] ?>" type="text">
+
+
                             <div class="w-full h-[2.5rem] flex justify-end items-center gap-2">
-                                <a href="appointment_from_func.php" class="w-[20%] text-white py-2 cursor-pointer text-center border border-green-200 bg-green-500">บันทึกข้อมูลนัด</a>
+                                <button type="submit" class="w-[20%] text-white py-2 cursor-pointer text-center border border-green-200 bg-green-500">บันทึกข้อมูลนัด</button>
                             </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
-                <!-- <?php print_r($_POST) ?> -->
 
             </div>
         </div>

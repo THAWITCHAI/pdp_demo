@@ -1,15 +1,6 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
-}
-?>
-<?php require_once('../Connected/connect.php'); ?>
-
 <?php include('../assets/html/header' . '.php'); ?>
 <?php
-if ($_POST["appointment_type"]) {
+if ($_POST) {
     // $appointment_type = strval($_POST["appointment_type"]);
     mysqli_set_charset($conn, "utf8mb4");
     $rs1 = mysqli_query(
@@ -65,10 +56,10 @@ if ($_POST["appointment_type"]) {
                     <div class="w-[90%] flex justify-center items-center gap-5">
                         <label for="" class="w-[50%] text-end">ใช้ในการคำนวณ :</label>
                         <select name="is_calculate" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                            <option <?php if (!(strcmp("N", htmlentities($row_rs_appointment_type['is_calculate'], ENT_COMPAT, 'utf8mb4')))) {
+                            <option <?php if (!(strcmp("N", htmlentities($row_rs_appointment_type['is_calculate'])))) {
                                         echo "SELECTED";
                                     } ?> value="N">No</option>
-                            <option <?php if (!(strcmp("Y", htmlentities($row_rs_appointment_type['is_calculate'], ENT_COMPAT, 'utf8mb4')))) {
+                            <option <?php if (!(strcmp("Y", htmlentities($row_rs_appointment_type['is_calculate'])))) {
                                         echo "SELECTED";
                                     } ?> value="Y">Yes</option>
                         </select>
@@ -76,10 +67,10 @@ if ($_POST["appointment_type"]) {
                     <div class="w-[90%] flex justify-center items-center gap-5">
                         <label for="" class="w-[50%] text-end">สร้าง slot ใหม่ แยกจาก slot หลัก :</label>
                         <select name="can_insert" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                            <option <?php if (!(strcmp("N", htmlentities($row_rs_appointment_type['can_insert'], ENT_COMPAT, 'utf8mb4')))) {
+                            <option <?php if (!(strcmp("N", htmlentities($row_rs_appointment_type['can_insert'])))) {
                                         echo "SELECTED";
                                     } ?> value="N">No</option>
-                            <option <?php if (!(strcmp("Y", htmlentities($row_rs_appointment_type['can_insert'], ENT_COMPAT, 'utf8mb4')))) {
+                            <option <?php if (!(strcmp("Y", htmlentities($row_rs_appointment_type['can_insert'])))) {
                                         echo "SELECTED";
                                     } ?> value="Y">Yes</option>
                         </select>

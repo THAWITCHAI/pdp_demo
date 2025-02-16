@@ -1,15 +1,6 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
-}
-?>
-<?php require_once('../Connected/connect.php'); ?>
-
 <?php include('../assets/html/header' . '.php'); ?>
 <?php
-if ($_POST["department_name"]) {
+if ($_POST) {
     $department_name = strval($_POST["department_name"]);
     mysqli_set_charset($conn, "utf8mb4");
     $rs1 = mysqli_query(
@@ -28,10 +19,8 @@ if ($_POST["department_name"]) {
     print_r($_POST);
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
-<?php include('../assets/html/header' . '.php'); ?>
 
 <body>
     <div class="w-full h-screen">

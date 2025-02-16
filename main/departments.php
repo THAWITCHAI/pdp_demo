@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
-}
-?>
-<?php require_once('../Connected/connect.php'); ?>
 <?php include('../assets/html/header' . '.php'); ?>
 
 <?php

@@ -1,11 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
-}
-?>
-<?php require_once('../Connected/connect.php'); ?>
 <?php include('../assets/html/header' . '.php'); ?>
 
 <?php
@@ -73,25 +65,24 @@ WHERE
                                         }
                                         ?>
                                         <?php if (mysqli_num_rows($rs1) > 0) { ?>
-                                            <? while ($row = mysqli_fetch_assoc($rs1)) { ?>
+                                            <?php while ($row = mysqli_fetch_assoc($rs1)) { ?>
                                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-
                                                     <td class="px-5 py-4 border border-gray-300">
                                                         <?= $row['appointment_type'] ?>
                                                     </td>
                                                     <td class="px-5 py-4 text-center border-x border-gray-300">
-                                                        <? if ($row['is_calculate'] == "N") { ?>
+                                                        <?php if ($row['is_calculate'] == "N") { ?>
                                                             <span class="rounded-x rounded-[5px] text-center bg-red-400 px-5 py-1 text-white">No</span>
-                                                        <? } else { ?>
+                                                        <?php } else { ?>
                                                             <span class="rounded-x rounded-[5px] text-center bg-green-400 px-5 py-1 text-white">Yes</span>
-                                                        <? } ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="px-5 py-4 text-center">
-                                                        <? if ($row['can_insert'] == "N") { ?>
+                                                        <?php if ($row['can_insert'] == "N") { ?>
                                                             <span class="rounded-x rounded-[5px] text-center bg-red-400 px-5 py-1 text-white">No</span>
-                                                        <? } else { ?>
+                                                        <?php } else { ?>
                                                             <span class="rounded-x rounded-[5px] text-center bg-green-400 px-5 py-1 text-white">Yes</span>
-                                                        <? } ?>
+                                                        <?php } ?>
                                                     </td>
                                                     <td class="px-5 py-4 text-center border-l border-gray-200">
                                                         <?php echo $row['slot_ratio']; ?>%
@@ -105,7 +96,7 @@ WHERE
                                                         </a>
                                                     </td>
                                                 </tr>
-                                            <? } ?>
+                                            <?php } ?>
                                         <?php } else { ?>
                                             <tr>
                                                 <td colspan="5" class="text-center py-4">No Appointment Type found.</td>

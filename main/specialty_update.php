@@ -1,15 +1,6 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
-}
-?>
-<?php require_once('../Connected/connect.php'); ?>
-
 <?php include('../assets/html/header' . '.php'); ?>
 <?php
-if ($_POST["specialty_name"]) {
+if ($_POST) {
     $specialty_name = strval($_POST["specialty_name"]);
     mysqli_set_charset($conn, "utf8mb4");
     $rs1 = mysqli_query(

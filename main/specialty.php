@@ -1,13 +1,4 @@
-<?php
-session_start();
-if (!isset($_SESSION['username'])) {
-    header("Location: ../auth/login.php");
-    exit();
-}
-?>
-<?php require_once('../Connected/connect.php'); ?>
 <?php include('../assets/html/header' . '.php'); ?>
-
 <?php
 mysqli_set_charset($conn, "utf8mb4");
 $rs1;
@@ -16,11 +7,14 @@ if ($_GET) {
     $rs1 = mysqli_query($conn, "SELECT 
     *
 FROM
-    demo_pdp.specialty
+    specialty
 WHERE
     specialty_name LIKE '%$_GET[specialty_name]%';");
 } else {
-    $rs1 = mysqli_query($conn, "select * from specialty");
+    $rs1 = mysqli_query($conn, "SELECT 
+    *
+FROM
+    specialty");
 }
 ?>
 
@@ -70,14 +64,13 @@ WHERE
                                     }
                                     ?>
                                     <?php if (mysqli_num_rows($rs1) > 0) { ?>
-                                        <? while ($row = mysqli_fetch_assoc($rs1)) { ?>
+                                        <?php while ($row = mysqli_fetch_assoc($rs1)) { ?>
                                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-
                                                 <td class="px-5 py-4 border border-gray-300">
                                                     <?= $row['specialty_name'] ?>
                                                 </td>
                                                 <td class="px-5 py-4 ">
-                                                    <?= $row['<?php include'] ?>
+                                                    <?= $row['specialty_name_en'] ?>
                                                 </td>
                                                 <td class="px-5 py-4 border-l border-r border-gray-300 gap-2 flex justify-center items-center">
                                                     <a href="./specialty_del.php?specialty_id=<?= $row['specialty_id'] ?>">
@@ -88,7 +81,7 @@ WHERE
                                                     </a>
                                                 </td>
                                             </tr>
-                                        <? } ?>
+                                        <?php } ?>
                                     <?php } else { ?>
                                         <tr>
                                             <td colspan="3" class="text-center py-4">No Specialty found.</td>

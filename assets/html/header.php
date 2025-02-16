@@ -1,3 +1,15 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['username'])) {
+    header("Location: ../auth/login.php");
+    exit();
+}
+?>
+
+<?php require_once('../Connected/connect.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 
