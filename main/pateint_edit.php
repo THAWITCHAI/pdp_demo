@@ -1,5 +1,37 @@
 <?php include('../assets/html/header' . '.php'); ?>
 
+<?php
+$patient_id;
+if ($_POST) {
+    mysqli_set_charset($conn, "utf8mb4");
+
+    $sql = "INSERT INTO patient (title, first_name, last_name, mobilephoneno, nationality_code, birth_date, idcard, email, gender, patient_remark) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    // ใช้ Prepared Statement เพื่อป้องกัน SQL Injection
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param(
+        "ssssssssss",
+        $_POST["title"],
+        $_POST["first_name"],
+        $_POST["last_name"],
+        $_POST["mobilephoneno"],
+        $_POST["nationality_code"],
+        $_POST["birth_date"],
+        $_POST["idcard"],
+        $_POST["email"],
+        $_POST["gender"],
+        $_POST["patient_remark"]
+    );
+    $stmt->execute();
+    $patient_id = $conn->insert_id;
+    header(sprintf("Location: %s","appointment_form.php?patient_id=$patient_id"));
+    // ปิดการเชื่อมต่อ
+    $stmt->close();
+    $conn->close();
+}
+?>
+
 <body>
     <div class="w-full h-screen">
         <?php include('../assets/html/navbar' . '.php'); ?>
@@ -13,7 +45,7 @@
                     <h1 class="text-xl text-blue-600 font-light mb-2">Pateint <small class="text-gray-500"><i class="fi fi-ts-angle-double-small-right"></i></small><small class="px-2">Add</small></h1>
                     <hr class="text-gray-300">
                 </div>
-                <form action="./appointment_form.php" method="post" class="p-2 w-[50%] flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700">
+                <form method="post" class="p-2 w-[50%] flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700">
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Title :</label>
                         <select name="title" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
@@ -36,11 +68,11 @@
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Moblie :</label>
-                        <input name="mobile" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                        <input name="mobilephoneno" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Nationality :</label>
-                        <input name="nationality" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                        <input name="nationality_code" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Birth Date :</label>
@@ -48,27 +80,23 @@
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">ID Card :</label>
-                        <input name="id_card" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                        <input name="idcard" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Email :</label>
                         <input name="email" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
-                        <label for="" class="w-[30%] text-end">Address :</label>
-                        <input name="address" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                    </div>
-                    <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Gender :</label>
-                        <select name="sex" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                        <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                             <option value="">ไม่ระบุ</option>
-                            <option value="ชาย">ชาย</option>
-                            <option value="หญิง">หญิง</option>
+                            <option value="1">ชาย</option>
+                            <option value="2">หญิง</option>
                         </select>
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Remark :</label>
-                        <textarea name="remark" id="" class="border border-gray-200 w-full py-2 outline-orange-500 outline-hidden focus:outline focus:border-none px-2"></textarea>
+                        <textarea name="patient_remark" id="" class="border border-gray-200 w-full py-2 outline-orange-500 outline-hidden focus:outline focus:border-none px-2"></textarea>
                     </div>
                     <div class="w-[70%] flex justify-end items-center gap-5">
                         <button type="submit" class="cursor-pointer px-3 py-1 text-white flex justify-center items-center bg-blue-400 hover:bg-blue-500 border border-blue-600">เพิ่มข้อมูล</button>

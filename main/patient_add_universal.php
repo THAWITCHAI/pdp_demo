@@ -1,4 +1,5 @@
-<?php include('../assets/html/header'.'.php'); ?>
+<?php include('../assets/html/header' . '.php'); ?>
+
 <body>
     <div class="w-full h-screen">
         <?php include('../assets/html/navbar' . '.php'); ?>
@@ -59,42 +60,47 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
+                                    <?php
+                                    $rs1 = mysqli_query($conn, "select * from patient");
+                                    while ($row = mysqli_fetch_assoc($rs1)) {
+                                    ?>
+                                        <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
 
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            6500001
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            Mr. MISFER MANSOOR ALSHAHYANI
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            64 ปี
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            02/09/2023
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            ชาย
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            ตรินิแดด
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            *3709800112083
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            055123444
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            +66912345828
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            43/8 ซอยทองหล่อ 2 จอมพล กทม.
-                                        </td>
-                                        <td class="px-1 py-4 border border-gray-300">
-                                            <button class="border border-red-600 hover:bg-red-600 text-[14px] px-2 py-1 bg-red-400 text-white cursor-pointer">Delete</button>
-                                        </td>
-                                    </tr>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row["hn"] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <?= $row[""] ?>
+                                            </td>
+                                            <td class="px-1 py-4 border border-gray-300">
+                                                <button class="border border-red-600 hover:bg-red-600 text-[14px] px-2 py-1 bg-red-400 text-white cursor-pointer">Delete</button>
+                                            </td>
+                                        </tr>
+                                    <?php } ?>
 
                                 </tbody>
                             </table>
@@ -107,5 +113,9 @@
     </div>
 </body>
 
-
+<script>
+    if(e(1<2).checked){
+        console.log(3000)
+    }
+</script>
 </html>
