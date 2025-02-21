@@ -61,47 +61,47 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $rs1 = mysqli_query($conn, "select * from patient");
+                                    mysqli_set_charset($conn, "utf8mb4");
+                                    $rs1 = mysqli_query($conn, "SELECT * FROM patient;");
                                     while ($row = mysqli_fetch_assoc($rs1)) {
                                     ?>
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
 
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row["hn"] ?>
+                                                <?= $row["hn"] == "" ? "ไม่มี HN" : $row["hn"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["first_name"] . " " . $row["last_name"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["ageyear"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["birth_date"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["gender"] == 1 ? "ชาย" : "หญิง" ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["nationality_code"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["idcard"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["tel"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["mobilephoneno"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
-                                                <?= $row[""] ?>
+                                                <?= $row["address"] ?>
                                             </td>
                                             <td class="px-1 py-4 border border-gray-300">
                                                 <button class="border border-red-600 hover:bg-red-600 text-[14px] px-2 py-1 bg-red-400 text-white cursor-pointer">Delete</button>
                                             </td>
                                         </tr>
                                     <?php } ?>
-
                                 </tbody>
                             </table>
                         </div>
@@ -114,8 +114,9 @@
 </body>
 
 <script>
-    if(e(1<2).checked){
+    if (e(1 < 2).checked) {
         console.log(3000)
     }
 </script>
+
 </html>
