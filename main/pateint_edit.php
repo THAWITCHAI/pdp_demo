@@ -5,13 +5,13 @@ $patient_id;
 if ($_POST) {
     mysqli_set_charset($conn, "utf8mb4");
 
-    $sql = "INSERT INTO patient (title, first_name, last_name, mobilephoneno, nationality_code, birth_date, idcard, email, gender, patient_remark) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO patient (title, first_name, last_name, mobilephoneno, nationality_code, birth_date, idcard, email, gender, patient_remark, is_new_patient,create_date) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     // ใช้ Prepared Statement เพื่อป้องกัน SQL Injection
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        "ssssssssss",
+        "ssssssssssss",
         $_POST["title"],
         $_POST["first_name"],
         $_POST["last_name"],
@@ -21,11 +21,15 @@ if ($_POST) {
         $_POST["idcard"],
         $_POST["email"],
         $_POST["gender"],
-        $_POST["patient_remark"]
+        $_POST["patient_remark"],
+        $_POST["is_new_patient"],
+        $_POST["create_date"]
+
+
     );
     $stmt->execute();
     $patient_id = $conn->insert_id;
-    header(sprintf("Location: %s","appointment_form.php?patient_id=$patient_id"));
+    header(sprintf("Location: %s", "appointment_form.php?patient_id=$patient_id"));
     // ปิดการเชื่อมต่อ
     $stmt->close();
     $conn->close();
@@ -94,6 +98,8 @@ if ($_POST) {
                             <option value="2">หญิง</option>
                         </select>
                     </div>
+                    <input type="text" value="Y" name="is_new_patient" hidden>
+                    <input type="text" value="<?=date("Y-m:d")?>" name="create_date" hidden>
                     <div class="w-[70%] flex justify-center items-center gap-5">
                         <label for="" class="w-[30%] text-end">Remark :</label>
                         <textarea name="patient_remark" id="" class="border border-gray-200 w-full py-2 outline-orange-500 outline-hidden focus:outline focus:border-none px-2"></textarea>

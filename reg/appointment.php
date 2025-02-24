@@ -1,14 +1,13 @@
 <?php include('../assets/html/header' . '.php'); ?>
 <?php
-// เชื่อมต่อฐานข้อมูล
+
 mysqli_set_charset($conn, "utf8mb4");
 
-// Pagination Configuration
-$limit = 10; // จำนวนรายการที่จะแสดงต่อหน้า
+
+$limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $offset = ($page - 1) * $limit;
 
-// Count total records
 $total_records_query = mysqli_query($conn, "SELECT COUNT(*) as total FROM appointment t1 
     LEFT JOIN patient t2 ON t1.patient_id = t2.patient_id
     LEFT JOIN doctor t3 ON t1.doctor_id = t3.doctor_id
@@ -17,7 +16,6 @@ $total_records_query = mysqli_query($conn, "SELECT COUNT(*) as total FROM appoin
 $total_records = mysqli_fetch_assoc($total_records_query)['total'];
 $total_pages = ceil($total_records / $limit);
 
-// Fetch data with LIMIT and OFFSET
 $rs1 = mysqli_query($conn, "SELECT * 
     FROM appointment t1 
     LEFT JOIN patient t2 ON t1.patient_id = t2.patient_id
@@ -120,7 +118,7 @@ $rs1 = mysqli_query($conn, "SELECT *
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["title"] . " " . $row["first_name"] . " " . $row["last_name"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["tel"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["mobilephoneno"] ?></td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= $row["birth_date"] ?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= date('d/m/Y', strtotime($row["birth_date"])) ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["doctor_name"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["appointment_type"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["procedure_name"] ?></td>

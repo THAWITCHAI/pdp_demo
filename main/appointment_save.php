@@ -1,6 +1,6 @@
 <?php 
 include('../assets/html/header.php'); 
-
+$reg_status = "late";
 // ตรวจสอบว่ามีการเชื่อมต่อฐานข้อมูลหรือไม่
 if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
@@ -12,8 +12,8 @@ mysqli_set_charset($conn, "utf8mb4");
 // SQL Query
 $sql = "INSERT INTO appointment (
     appointment_type_id, procedure_template_id, specialty_id, procedure_item_id, 
-    doctor_id, department_id, first_date, week_tolerance, location_id,patient_id
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    doctor_id, department_id, first_date, week_tolerance, location_id,patient_id, reg_status
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 // ตรวจสอบว่า prepare สำเร็จหรือไม่
 $stmt = $conn->prepare($sql);
@@ -33,7 +33,8 @@ $stmt->bind_param(
     $_POST["appointment_date"],
     $_POST["week_tolerance"],
     $_POST["location_id"],
-    $_POST["patient_id"]
+    $_POST["patient_id"],
+    $reg_status
 );
 
 // Execute SQL และตรวจสอบข้อผิดพลาด
