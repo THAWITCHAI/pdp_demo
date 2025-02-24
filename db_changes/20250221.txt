@@ -1,0 +1,2 @@
+ALTER TABLE `demo_pdp`.`appointment` 
+ADD COLUMN `reg_status` VARCHAR(45) NULL AFTER `procedure_item_id`;
