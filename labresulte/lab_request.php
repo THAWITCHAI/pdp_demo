@@ -43,7 +43,7 @@ if ($_POST) {
             <?php include('../assets/html/sidebar' . '.php'); ?>
             <div class="w-[86%] border-l border-gray-200 bg-white h-fit py-[0.5px] flex flex-col justify-start items-center">
                 <div class="w-full  h-[2.48rem] text-[14px] flex items-center hover:bg-[#fff] cursor-pointer p-2 bg-[#f8f8f8] border-y border-gray-200">
-                    <a href="patient_add_universal.php" class="text-blue-600">Home</a>
+                    <a href="../main/patient_add_universal.php" class="text-blue-600">Home</a>
                 </div>
                 <div class="w-full h-fit p-3">
                     <h1 class="text-xl text-blue-600 font-light mb-2">N-health Lab Request <small class="text-gray-500"><i class="fi fi-ts-angle-double-small-right"></i></small><small class="px-2">Edit</small></h1>
