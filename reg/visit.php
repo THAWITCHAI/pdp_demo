@@ -102,7 +102,7 @@ $rs1 = mysqli_query($conn, "SELECT *
                                     <tbody>
                                         <tr class="border-x border-b border-gray-200">
                                             <td class="p-3 text-start border">
-                                                <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เพิ่ม</button>
+                                                <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request"><a href="../labresulte/lab_request.php">เพิ่ม</a></button>
                                             </td>
                                             <td class="p-3 text-start border">Visit Date/Appointment</td>
                                             <td class="p-3 text-start border">Visit In/Doctor</td>
@@ -222,7 +222,7 @@ $rs1 = mysqli_query($conn, "SELECT *
                                             <td class="p-3 text-start border">3120 : นพ.สมบัติ ตันโชติกุล</td>
                                             <td class="p-3 text-start border">A010 : Complete Blood Count</td>
                                             <td class="p-3 text-start border">25/02/2025 16:18</td>
-                                            <td class="p-3 text-start border">25/02/2025 16:18 <button class="bg-blue-500 p-2 text-white m-1 rounded-[5px]">Edit</button></td>
+                                            <td class="p-3 text-start border">25/02/2025 16:18 <button class="bg-blue-500 p-2 text-white m-1 rounded-[5px]"><a href="../labresulte/lab_request_edit.php">Edit</a></button></td>
                                             <td class="p-3 text-start border"></td>
                                             <td class="p-3 text-start border">1 Day</td>
                                             <td class="p-3 text-start border">
