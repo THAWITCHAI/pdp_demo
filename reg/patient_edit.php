@@ -159,6 +159,10 @@ if ($_POST) {
                             <input name="birth_date" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                     </div>
+                    <div class="w-full flex justify-between p-2">
+                        <button class="cursor-pointer hover:bg-red-400 bg-red-500 p-2 text-white text-[14px]">ยกเลิกการลงทะเบียน</button>
+                        <button class="cursor-pointer hover:bg-blue-400 bg-blue-500 p-2 text-white text-[14px]">ยืนยันข้อมูลคนไข้</button>
+                    </div>
                 </form>
             </div>
         </div>

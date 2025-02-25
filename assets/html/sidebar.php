@@ -33,7 +33,7 @@
             <button class="cursor-pointer">VN by Appointment</button>
         </ul>
     </a>
-    <a href="../main/appointment_type.php" class="w-full h-[2.5rem] text-[14px] flex items-center hover:bg-blue-50 pl-5 cursor-pointer p-2 bg-[#fff] border-b border-gray-200">
+    <a href="../reg/patient.php" class="w-full h-[2.5rem] text-[14px] flex items-center hover:bg-blue-50 pl-5 cursor-pointer p-2 bg-[#fff] border-b border-gray-200">
         <ul>
             <button class="cursor-pointer">VN by Patient</button>
         </ul>
