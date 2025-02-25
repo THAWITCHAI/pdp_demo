@@ -1,9 +1,9 @@
 <?php
 $servername = "localhost";
 $username = "root";
-$password = "intranet";
-$dbname = "demo_pdp";
-// $dbname = "pdp_demo";
+$password = "";
+// $dbname = "demo_pdp";
+$dbname = "pdp_demo";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

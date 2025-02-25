@@ -60,6 +60,7 @@ if ($_POST) {
                     </div>
 
                     <div class="w-[70%] flex justify-end items-center gap-5">
+                        <button onclick="history.back()" type="button" class="cursor-pointer px-3 py-1 text-white flex justify-center items-center bg-red-400 hover:bg-red-500 border border-red-600">ยกเลิก</button>
                         <button type="submit" class="cursor-pointer px-3 py-1 text-white flex justify-center items-center bg-blue-400 hover:bg-blue-500 border border-blue-600">เพิ่มข้อมูล</button>
                     </div>
                 </form>
