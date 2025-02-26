@@ -81,7 +81,7 @@ $rs1 = mysqli_query($conn, "SELECT *
                                         <td class="px-1 py-4 border border-gray-300">A020</td>
                                         <td class="px-1 py-4 border border-gray-300">ABO Group for Heamatology</td>
                                         <td class="px-1 py-4 border border-gray-300 gap-2">
-                                            <button class="border border-yellow-600 hover:bg-yellow-600 text-[14px] px-2 py-1 bg-yellow-400 text-white cursor-pointer"><a href="./nh_lab_edit.php">Edit</a></button>
+                                            <button class="border border-yellow-600 hover:bg-yellow-600 text-[14px] px-2 py-1 bg-yellow-400 text-white cursor-pointer"><a href="./simple_type_edit.php">Edit</a></button>
                                             <button class="border border-red-600 hover:bg-red-600 text-[14px] px-2 py-1 bg-red-400 text-white cursor-pointer">Delete</button>
                                         </td>
                                     </tr>

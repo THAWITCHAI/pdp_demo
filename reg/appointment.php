@@ -105,7 +105,7 @@ $rs1 = mysqli_query($conn, "SELECT *
                                     <tr class="bg-white border-b border-gray-200">
                                         <td class="px-1 py-4 border border-gray-300">
                                             <?php if ($row["vn_reg"] == "") { ?>
-                                                <button class="text-white cursor-pointer px-5 text-[12px] bg-blue-400"><a href="./patient_edit.php?s_mode=NEW_VN&auto_read=&hn=6800009&patient_id=39377">GEN VN</a></button>
+                                                <button class="text-white cursor-pointer px-5 text-[12px] bg-blue-400"><a href="./patient_edit.php?s_mode=NEW_VN&auto_read=&hn=<?=$row['hn']?>&patient_id=<?=$row["patient_id"]?>">GEN VN</a></button>
                                             <?php } ?>
                                         </td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["reg_status"] ?></td>

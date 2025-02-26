@@ -1,35 +1,75 @@
 <?php include('../assets/html/header' . '.php'); ?>
 
 <?php
-$patient_id;
-if ($_POST) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_set_charset($conn, "utf8mb4");
+    $patient_id = $_POST['patient_id'];
+    $title = $_POST['title'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $nick_name = $_POST['nick_name'];
+    $birth_date = $_POST['birth_date'];
+    $gender = $_POST['gender'];
+    $religion = $_POST['reiigion']; // มีการสะกดผิดจากฟอร์ม ควรเปลี่ยนเป็น religion
+    $marital_status = $_POST['maritalstatus'];
+    $idcard = $_POST['idcard'];
+    $nationality_code = $_POST['nationality_code'];
+    $race_code = $_POST['race_code'];
+    $ref_passport = $_POST['ref_passport'];
+    $patient_type = $_POST['patient_type'];
+    $address = $_POST['address'];
 
-    $sql = "INSERT INTO patient (title, first_name, last_name, mobilephoneno, nationality_code, birth_date, idcard, email, gender, patient_remark) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "UPDATE patient SET
+                hn = $hn,
+                title = '$title',
+                first_name = '$first_name',
+                last_name = '$last_name',
+                nick_name = '$nick_name',
+                birth_date = '$birth_date',
+                gender = '$gender',
+                reiigion = '$religion',
+                maritalstatus = '$marital_status',
+                idcard = '$idcard',
+                nationality_code = '$nationality_code',
+                race_code = '$race_code',
+                ref_passport = '$ref_passport',
+                patient_type = '$patient_type',
+                address = '$address'
+            WHERE patient_id = '$patient_id'";
 
-    // ใช้ Prepared Statement เพื่อป้องกัน SQL Injection
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param(
-        "ssssssssss",
-        $_POST["title"],
-        $_POST["first_name"],
-        $_POST["last_name"],
-        $_POST["mobilephoneno"],
-        $_POST["nationality_code"],
-        $_POST["birth_date"],
-        $_POST["idcard"],
-        $_POST["email"],
-        $_POST["gender"],
-        $_POST["patient_remark"]
-    );
-    $stmt->execute();
-    $patient_id = $conn->insert_id;
-    header(sprintf("Location: %s", "appointment_form.php?patient_id=$patient_id"));
-    // ปิดการเชื่อมต่อ
-    $stmt->close();
-    $conn->close();
+    if (mysqli_query($conn, $sql)) {
+        $d = date("Ymd"."-"."$patient_id");
+        echo $d;
+        mysqli_query($conn, "UPDATE appointment 
+        SET 
+            reg_status = 'Visited',
+            appointmentno = '$d'
+        WHERE
+            patient_id = '$patient_id';");
+
+        header("Location: ./vn_add.php?patient_id=$patient_id");
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($conn);
+    }
 }
+?>
+
+<?php
+mysqli_set_charset($conn, "utf8mb4");
+$sql = "
+SELECT
+    *
+FROM
+    patient t1
+LEFT OUTER JOIN appointment t2 ON t1.patient_id = t2.patient_id
+LEFT OUTER JOIN doctor t3 ON t3.doctor_id = t2.doctor_id
+WHERE
+    t1.patient_id = $_GET[patient_id]
+";
+$rs1 = mysqli_query($conn, $sql);
+$row = mysqli_fetch_assoc($rs1);
+
 ?>
 
 <body>
@@ -45,122 +85,103 @@ if ($_POST) {
                     <h1 class="text-xl text-blue-600 font-light mb-2">Pateint </h1>
                     <hr class="text-gray-300">
                 </div>
-                <form method="post" class="p-2 w-full flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700">
+                <form action="" method="POST" class="p-2 w-full flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700">
                     <div class="w-full grid grid-cols-4 gap-5">
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">คำนำหน้า :</label>
-                            <select name="title" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <select name="title" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                 <option value="">กรูณาเลือก</option>
-                                <option value="นาย">นาย</option>
-                                <option value="นาง">นาง</option>
-                                <option value="นางสาว">นางสาว</option>
-                                <option value="เด็กหญิง">เด็กหญิง</option>
-                                <option value="เด็กชาย">เด็กชาย</option>
-                                <option value="คุณ">คุณ</option>
+                                <option <?= $row["title"] == "นาย" ? "selected" : "" ?> value="นาย">นาย</option>
+                                <option <?= $row["title"] == "นาง" ? "selected" : "" ?> value="นาง">นาง</option>
+                                <option <?= $row["title"] == "นางสาว" ? "selected" : "" ?> value="นางสาว">นางสาว</option>
+                                <option <?= $row["title"] == "เด็กหญิง" ? "selected" : "" ?> value="เด็กหญิง">เด็กหญิง</option>
+                                <option <?= $row["title"] == "เด็กชาย" ? "selected" : "" ?> value="เด็กชาย">เด็กชาย</option>
+                                <option <?= $row["title"] == "คุณ" ? "selected" : "" ?> value="คุณ">คุณ</option>
                             </select>
                         </div>
+                        <input hidden type="text" name="patient_id" value="<?= $_GET["patient_id"] ?>">
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">ชื่อ :</label>
-                            <input required name="first_name" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <input value="<?= $row['first_name'] ?>" name="first_name" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">นามสกุล :</label>
-                            <input name="last_name" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <input value="<?= $row['last_name'] ?>" name="last_name" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">ชื่อเล่น :</label>
-                            <input name="mobilephoneno" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <input value="<?= $row['nick_name'] ?>" name="nick_name" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">Birth Date :</label>
-                            <input name="birth_date" required type="date" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <input value="<?= $row['birth_date'] ?>" name="birth_date" type="date" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
+
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">เพศ :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <select name="gender" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                 <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
+                                <option <?= $row['gender'] == "1" ? "selected" : "" ?> value="1">ชาย</option>
+                                <option <?= $row['gender'] == "2" ? "selected" : "" ?> value="2">หญิง</option>
                             </select>
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">ศาสนา :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <select name="reiigion" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                 <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
+                                <option <?= $row["reiigion"] == "1" ? "selected" : "" ?> value="1">พุทธ</option>
+                                <option <?= $row["reiigion"] == "2" ? "selected" : "" ?> value="2">อิสลาม</option>
                             </select>
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
-                            <label for="" class="w-[30%] text-end">สถานะ :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <label for="maritalstatus" class="w-[30%] text-end">สถานะ :</label>
+                            <select name="maritalstatus" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                 <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
+                                <option <?= $row["maritalstatus"] == "โสด" ? "selected" : "" ?> value="1" value="โสด">โสด</option>
+                                <option <?= $row["maritalstatus"] == "ม่าย" ? "selected" : "" ?> value="1" value="ม่าย">ม่าย</option>
+                                <option <?= $row["maritalstatus"] == "แต่งงานแล้ว" ? "selected" : "" ?> value="1" value="แต่งงานแล้ว">แต่งงานแล้ว</option>
                             </select>
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">เลขที่บัตรประชน :</label>
-                            <input name="birth_date" required type="date" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <input value="<?= $row["idcard"] ?>" name="idcard" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">สัญชาติ :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
-                            </select>
+                            <input value="<?= $row["nationality_code"] ?>" name="nationality_code" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">เชื่้อชาติ :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
-                            </select>
+                            <input value="<?= $row["race_code"] ?>" name="race_code" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">หนังสื่อเดินทาง :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
-                            </select>
+                            <input value="<?= $row["ref_passport"] ?>" name="ref_passport" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">Doctor :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
-                            </select>
+                            <input disabled value="<?= $row["doctor_name"] ?>" name="doctor" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">Patient Type :</label>
-                            <select name="gender" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                                <option value="">ไม่ระบุ</option>
-                                <option value="1">ชาย</option>
-                                <option value="2">หญิง</option>
+                            <select name="patient_type" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                                <option <?= $row["patient_type"] == "" ? "selected" : "" ?> value="">ไม่ระบุ</option>
+                                <option <?= $row["patient_type"] == "บุคคลทั่วไป" ? "selected" : "" ?> value="บุคคลทั่วไป">บุคคลทั่วไป</option>
+                                <option <?= $row["patient_type"] == "ครอบครัวพนังงาน" ? "selected" : "" ?> value="ครอบครัวพนังงาน">ครอบครัวพนังงาน</option>
+                                <option <?= $row["patient_type"] == "ชาวต่างชาติ" ? "selected" : "" ?> value="ชาวต่างชาติ">ชาวต่างชาติ</option>
+                                <option <?= $row["patient_type"] == "พนังงาน" ? "selected" : "" ?> value="พนังงาน">พนังงาน</option>
                             </select>
                         </div>
                     </div>
                     <h1 class="text-[20px] text-blue-600 w-full text-start">ข้อมูลที่อยู่</h1>
                     <div class="w-full grid grid-cols-4 gap-5 w-full">
-                        <div class="w-[100%] flex justify-center items-center gap-5">
-                            <label for="" class="w-[30%] text-end">จังหวัด :</label>
-                            <input name="birth_date" required type="date" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                        </div>
-                        <div class="w-[100%] flex justify-center items-center gap-5">
-                            <label for="" class="w-[30%] text-end">บ้านเลขที่ :</label>
-                            <input name="birth_date" required type="date" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                        </div>
-                        <div class="w-[100%] col-span-2 flex justify-center items-center gap-5">
+                        <div class="w-[100%] col-span-4 flex justify-center items-center gap-5">
                             <label for="" class="w-[30%] text-end">ตำบล/อำเภอ/จังหวัด :</label>
-                            <input name="birth_date" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                            <input value="<?= $row["address"] ?>" name="address" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                         </div>
                     </div>
                     <div class="w-full flex justify-between p-2">
-                        <button class="cursor-pointer hover:bg-red-400 bg-red-500 p-2 text-white text-[14px]">ยกเลิกการลงทะเบียน</button>
+                        <button type="button" onclick="history.back()" class="cursor-pointer hover:bg-red-400 bg-red-500 p-2 text-white text-[14px]">ยกเลิกการลงทะเบียน</button>
                         <button class="cursor-pointer hover:bg-blue-400 bg-blue-500 p-2 text-white text-[14px]">ยืนยันข้อมูลคนไข้</button>
                     </div>
                 </form>

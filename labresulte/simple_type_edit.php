@@ -52,41 +52,12 @@ if ($_POST) {
                 <form method="post" class="p-2 w-[55%] flex flex-col justify-center items-center gap-5 text-[14px] text-gray-700 ">
 
                     <div class="w-[70%] flex justify-center items-center gap-5">
-                        <label for="" class="w-[30%] text-end">Lab Code :</label>
+                        <label for="" class="w-[30%] text-end">Code :</label>
                         <input required name="first_name" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                     </div>
                     <div class="w-[70%] flex justify-center items-center gap-5">
-                        <label for="" class="w-[30%] text-end">Lab Name :</label>
-                        <input name="last_name" required type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                    </div>
-                    <div class="w-[70%] flex justify-center items-center gap-5">
-                        <label for="" class="w-[30%] text-end">Treatment :</label>
-                        <select name="title" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                            <option value="">กรูณาเลือก</option>
-                            <option value="นาย">นาย</option>
-                            <option value="นาง">นาง</option>
-                            <option value="นางสาว">นางสาว</option>
-                            <option value="เด็กหญิง">เด็กหญิง</option>
-                            <option value="เด็กชาย">เด็กชาย</option>
-                            <option value="คุณ">คุณ</option>
-                        </select>
-                    </div>
-
-                    <div class="w-[70%] flex justify-center items-center gap-5">
-                        <label for="" class="w-[30%] text-end">Simple Type :</label>
-                        <select name="title" required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
-                            <option value="">กรูณาเลือก</option>
-                            <option value="นาย">นาย</option>
-                            <option value="นาง">นาง</option>
-                            <option value="นางสาว">นางสาว</option>
-                            <option value="เด็กหญิง">เด็กหญิง</option>
-                            <option value="เด็กชาย">เด็กชาย</option>
-                            <option value="คุณ">คุณ</option>
-                        </select>
-                    </div>
-                    <div class="w-[70%] flex justify-center items-center gap-5">
-                        <label for="" class="w-[30%] text-end">Estimate Time (Day) :</label>
-                        <input name="last_name" required type="number" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
+                        <label for="" class="w-[30%] text-end">Name :</label>
+                        <input required name="first_name" type="text" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                     </div>
                     <div class="w-[70%] flex justify-end items-center gap-5">
                         <button onclick="history.back()" type="button" class="cursor-pointer px-3 py-1 text-white flex justify-center items-center bg-red-400 hover:bg-red-500 border border-red-600">ยกเลิก</button>

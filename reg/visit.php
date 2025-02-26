@@ -226,7 +226,12 @@ $rs1 = mysqli_query($conn, "SELECT *
                                             <td class="p-3 text-start border"></td>
                                             <td class="p-3 text-start border">1 Day</td>
                                             <td class="p-3 text-start border">
-                                                <p class="text-green-500">New</p>
+                                                <p class="text-green-500">
+                                                    <span class="bg-gray-500 text-white text-sm font-semibold px-3 py-1 ">
+                                                        New
+                                                    </span>
+
+                                                </p>
                                             </td>
                                             <td class="p-3 text-start border">Close Visit Ref</td>
                                             <td class="p-3 text-start flex justify-center items-center gap-2">

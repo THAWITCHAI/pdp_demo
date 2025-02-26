@@ -21,9 +21,10 @@ if (!$stmt) {
     die("SQL Prepare Failed: " . $conn->error);
 }
 
+print_r($_POST);    
 // กำหนดชนิดข้อมูล
 $stmt->bind_param(
-    "iiiiiiisii",  // i = int, s = string
+    "iiiiiissiis",  // i = int, s = string
     $_POST["appointment_type_id"],
     $_POST["procedure_template_id"],
     $_POST["specialty_id"],
