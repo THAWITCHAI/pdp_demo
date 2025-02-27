@@ -137,9 +137,9 @@ $row = mysqli_fetch_assoc($rs1);
                             <label for="maritalstatus" class="w-[30%] text-end">สถานะ :</label>
                             <select name="maritalstatus" class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2">
                                 <option value="">ไม่ระบุ</option>
-                                <option <?= $row["maritalstatus"] == "โสด" ? "selected" : "" ?> value="1" value="โสด">โสด</option>
-                                <option <?= $row["maritalstatus"] == "ม่าย" ? "selected" : "" ?> value="1" value="ม่าย">ม่าย</option>
-                                <option <?= $row["maritalstatus"] == "แต่งงานแล้ว" ? "selected" : "" ?> value="1" value="แต่งงานแล้ว">แต่งงานแล้ว</option>
+                                <option <?= $row["maritalstatus"] == "โสด" ? "selected" : "" ?> value="โสด" value="โสด">โสด</option>
+                                <option <?= $row["maritalstatus"] == "ม่าย" ? "selected" : "" ?> value="ม่าย" value="ม่าย">ม่าย</option>
+                                <option <?= $row["maritalstatus"] == "แต่งงานแล้ว" ? "selected" : "" ?> value="แต่งงานแล้ว" value="แต่งงานแล้ว">แต่งงานแล้ว</option>
                             </select>
                         </div>
                         <div class="w-[100%] flex justify-center items-center gap-5">

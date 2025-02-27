@@ -107,21 +107,23 @@ $rs1 = mysqli_query($conn, "SELECT *
                                 <?php while ($row = mysqli_fetch_assoc($rs1)) { ?>
                                     <tr class="bg-white border-b border-gray-200">
                                         <td class="px-1 py-4 border border-gray-300">
-                                            <?php if ($row["vn_reg"] == "") { ?>
-                                                <button class="text-white cursor-pointer px-5 text-[12px] bg-blue-400"><a href="./patient_edit.php?s_mode=NEW_VN&auto_read=&hn=6800009&patient_id=39377">แสดงข้อมูล <br /> Visit</a></button>
+                                            <?php if ($row["vn_reg"] != "") { ?>
+                                                <button class="text-white cursor-pointer px-5 text-[12px] bg-blue-400"><a href="./visit.php?hn=<?=$row["hn"]?>&s_mode=VIEW&visitdate=<?=$row["visitdate"]?>">แสดงข้อมูล <br /> Visit</a></button>
                                             <?php } ?>
                                         </td>
-                                        <td class="px-1 py-4 border border-gray-300">64538299</td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= date('d/m/Y', strtotime($row["makedatetime"])) ?></td>
-                                        <td class="px-1 py-4 border border-gray-300">Thawitchai Boonsong</td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= date('H:i:s', strtotime($row["makedatetime"])) ?></td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= $row["appointmentno"] ?></td>
-                                        <td class="px-1 py-4 border border-gray-300">Male</td>
-                                        <td class="px-1 py-4 border border-gray-300">Thailand</td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= $row["title"] . " " . $row["first_name"] . " " . $row["last_name"] ?></td>
-                                        <td class="px-1 py-4 border border-gray-300">065-297-4104</td>
+                                        <td class="px-1 py-4 border border-gray-300"><?=$row["hn"]?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= $row["reg_status"]?></td>
+                                        <!-- <td class="px-1 py-4 border border-gray-300"><?= date('d/m/Y', strtotime($row["makedatetime"])) ?></td> -->
+                                        <td class="px-1 py-4 border border-gray-300"><?= $row["first_name"]." ".$row["last_name"]?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= date("Y")-date('Y', strtotime($row["birth_date"])) ?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= date('d/m/Y', strtotime($row["birth_date"])) ?></td>
+                                        <!-- <td class="px-1 py-4 border border-gray-300"><?= date('H:i:s', strtotime($row["makedatetime"])) ?></td> -->
+                                        <td class="px-1 py-4 border border-gray-300"><?= $row["gender"]=="1"?"ชาย":"หญิง" ?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= $row["nationality_code"]?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= $row["idcard"]?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= $row["tel"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["mobilephoneno"] ?></td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= $row["mobilephoneno"] ?></td>
+                                        <td class="px-1 py-4 border border-gray-300"><?= $row["address"] ?></td>
 
                                     </tr>
                                 <?php } ?>

@@ -22,9 +22,11 @@ $rs1 = mysqli_query($conn, "SELECT *
     LEFT JOIN doctor t3 ON t1.doctor_id = t3.doctor_id
     LEFT JOIN appointment_type t4 ON t1.appointment_type_id = t4.appointment_type_id
     LEFT JOIN procedure_item t5 ON t1.procedure_item_id = t5.procedure_item_id
+    LEFT JOIN department t6 ON t1.department_id = t6.department_id 
+    WHERE t2.hn = '$_GET[hn]' AND t1.visitdate = '$_GET[visitdate]'
     LIMIT $limit OFFSET $offset;");
+$row = mysqli_fetch_assoc($rs1);
 ?>
-
 <!DOCTYPE html>
 <html lang="th">
 
@@ -56,11 +58,12 @@ $rs1 = mysqli_query($conn, "SELECT *
                                 <tbody>
                                     <tr class="border-b h-[2.5rem]">
                                         <td class="text-blue-600 text-center py-2 bg-blue-50">ชื่อ</td>
-                                        <td class="px-2">CCC CCC HN: 6800011 VN: 001</td>
+                                        <td class="px-2"><?= $row["first_name"]." ".$row["last_name"]?> HN: <?=$row["hn"]?> VN: <?=$row["vn_reg"]?></td>
                                     </tr>
                                     <tr class="border-b h-[2.5rem]">
                                         <td class="text-blue-600 text-center py-2 bg-blue-50"></td>
-                                        <td class="px-2">อายุ ( 24-02-2568 ) - ชาย <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add Service Point Data">เพิ่ม</button> Out Patient : 25/02/2025 10:36:59 Patient Need : </td>
+                                        <?php $is_disable = true; ?>
+                                        <td class="px-2">อายุ ( <?= date('d-m-Y', strtotime($row["birth_date"])) ?> ) - ชาย <button <?= $is_disable == true ? "disabled" : "" ?> class="rounded-[5px] <?= $is_disable == true ? "bg-blue-200" : "bg-blue-500" ?> px-5 h-fit py-1 mx-2 text-white" title="Add Service Point Data">เพิ่ม</button> Out Patient : <?= $row["makedatetime"] ?> Patient Need : </td>
                                     </tr>
                                     <tr class="border-b h-[2.5rem]">
                                         <td class="text-blue-600 text-center py-2 bg-blue-50"></td>
@@ -84,7 +87,7 @@ $rs1 = mysqli_query($conn, "SELECT *
 
                         <div class="tab-content w-full flex flex-col justify-start gap-2 p-4 hidden" id="visit">
                             <div class="flex flex-col justify-start gap-2">
-                                <h2 class="text-blue-600 text-[18px] py-5 border-b border-dotted border-gray-200">Visit : 25/02/2025 </h2>
+                                <h2 class="text-blue-600 text-[18px] py-5 border-b border-dotted border-gray-200">Visit : <?=$row["visitdate"]?> </h2>
                                 <table class="w-full text-[14px]">
                                     <thead>
                                         <tr class="border border-gray-200 bg-gray-50">
@@ -94,9 +97,7 @@ $rs1 = mysqli_query($conn, "SELECT *
                                             <th class="p-3 text-start border">Visit In/Doctor</th>
                                             <th class="p-3 text-start border">Visit Out/Clinic</th>
                                             <th class="p-3 text-start border">Patient Type/Right</th>
-                                            <th class="p-3 text-start border">Room</th>
                                             <th class="p-3 text-start border">Close Visit Ref</th>
-                                            <th class="p-3 text-start border"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -104,17 +105,13 @@ $rs1 = mysqli_query($conn, "SELECT *
                                             <td class="p-3 text-start border">
                                                 <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request"><a href="../labresulte/lab_request.php">เพิ่ม</a></button>
                                             </td>
-                                            <td class="p-3 text-start border">Visit Date/Appointment</td>
-                                            <td class="p-3 text-start border">Visit In/Doctor</td>
-                                            <td class="p-3 text-start border">Visit Out/Clinic</td>
-                                            <td class="p-3 text-start border">Patient Type/Right</td>
-                                            <td class="p-3 text-start border">Room</td>
-                                            <td class="p-3 text-start border">Close Visit Ref</td>
-                                            <td class="p-3 text-start border">Close Visit Ref</td>
-                                            <td class="p-3 text-start flex justify-center items-center gap-2">
-                                                <button class="bg-yellow-500 text-white p-2">แก้ไข</button>
-                                                <button class="bg-red-500 text-white p-2">ลบ</button>
-                                            </td>
+                                            <td class="p-3 text-start border"><?=$row["vn_reg"]?></td>
+                                            <td class="p-3 text-start border"><?=$row["appointmentno"]?></td>
+                                            <td class="p-3 text-start border"><?=$row["doctor_name"]?></td>
+                                            <td class="p-3 text-start border"><?=$row["department_name"]?></td>
+                                            <td class="p-3 text-start border"><?=$row["appointment_type"]?></td>
+                                            <td class="p-3 text-start border"><?=$row["prescriptionref"]?></td>
+                                
                                         </tr>
                                     </tbody>
                                 </table>

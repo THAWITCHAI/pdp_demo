@@ -1,4 +1,32 @@
 <?php include('../assets/html/header' . '.php'); ?>
+
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    mysqli_set_charset($conn, "utf8mb4");
+    $patient_id = $_GET['patient_id'];
+    $remarksmemo = $_POST['remarksmemo'];
+    $right_name = $_POST['right_name'];
+    $prescriptionref = $_POST['prescriptionref'];
+    $vn_reg = date("y") + date("m") + date("d") + date("H") + date("i") + date("s");
+    $visitdate = date("d-m-Y");
+
+
+    mysqli_query($conn, "UPDATE appointment 
+        SET 
+            remarksmemo = '$remarksmemo',
+            right_name = '$right_name',
+            prescriptionref = '$prescriptionref',
+            vn_reg = '$vn_reg',
+            visitdate = '$visitdate'
+
+        WHERE
+            patient_id = '$patient_id';");
+
+    header("Location: ./appointment.php");
+    exit();
+}
+?>
+
 <?php
 mysqli_set_charset($conn, "utf8mb4");
 $sql = "
@@ -75,25 +103,25 @@ $row = mysqli_fetch_assoc($rs1);
                                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
 
                                     <td class="px-6 py-4">
-                                        <?=$row["appointmentno"]?>
+                                        <?= $row["appointmentno"] ?>
                                     </td>
                                     <td class="px-6 py-4">
 
                                     </td>
                                     <td class="px-6 py-4">
-                                    <?=$row["doctor_name"]?>
+                                        <?= $row["doctor_name"] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                    <?=$row["makedatetime"]?>
+                                        <?= $row["makedatetime"] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                    <?=$row["appointment_type"]?>
+                                        <?= $row["appointment_type"] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                    <?=$row["department_name"]?>
+                                        <?= $row["department_name"] ?>
                                     </td>
                                     <td class="px-6 py-4">
-                                    <?=$row["procedure_name"]?>
+                                        <?= $row["procedure_name"] ?>
                                     </td>
                                 </tr>
                             </tbody>
@@ -103,52 +131,28 @@ $row = mysqli_fetch_assoc($rs1);
                         <div class="flex flex-col justify-center gap-2 items-center w-full h-fit ">
                             <div class="w-full flex justify-center gap-2 items-center">
                                 <label class="w-[45%] h-[2rem] flex items-center justify-end text-end">สิทธิ์:</label>
-                                <select required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="" id="">
+                                <select required class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="right_name" id="">
+                                    <option value="">กรุณาเลือก</option>
                                     <option value="ชำระเงินเอง">ชำระเงินเอง</option>
                                 </select>
                             </div>
                             <div class="w-full flex justify-center gap-2 items-center">
                                 <label class="w-[45%] h-[2rem] flex items-center justify-end text-end">หมายเหตุ:</label>
-                                <input class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="" id="" />
+                                <input class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="remarksmemo" id="" />
                             </div>
                             <div class="w-full flex justify-center gap-2 items-center">
                                 <label class="w-[45%] h-[2rem] flex items-center justify-end text-end">Ref:</label>
-                                <input disabled class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="" id="" />
+                                <input disabled class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="prescriptionref" id="" />
                             </div>
-                            <div class="w-full flex justify-center gap-2 items-center">
-                                <label class="w-[45%] h-[2rem] flex items-center justify-end text-end">เลือกชุดเอกสาร:</label>
-                                <select class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="" id="">
-                                    <option value="">None</option>
-                                    <option value="">SET 1</option>
-                                    <option value="">SET 2</option>
-                                </select>
-                            </div>
-                            <div class="w-full flex justify-center gap-2 items-center">
-                                <label class="w-[45%] h-[2rem] flex items-center justify-end text-end">พิมพ์เอกสาร:</label>
-                                <select class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="" id="">
-                                    <option value="">None</option>
-                                    <option value="">ใบนำทาง+ใบยา</option>
-                                    <option value="">3 ชุด</option>
-                                    <option value="">4 ชุด</option>
-                                </select>
-                            </div>
-                            <div class="w-full flex justify-center gap-2 items-center">
-                                <label class="w-[45%] h-[2rem] flex items-center justify-end text-end">จำนวนพิมพ์เอกสาร:</label>
-                                <select class="border border-gray-200 w-full h-[2rem] outline-orange-500 outline-hidden focus:outline focus:border-none px-2" name="" id="">
-                                    <option value="">1 ชุด</option>
-                                    <option value="">2 ชุด</option>
-                                    <option value="">3 ชุด</option>
-                                    <option value="">4 ชุด</option>
-                                </select>
-                            </div>
+
                         </div>
                         <div class="w-full flex flex-col justify-start gap-2 items-center">
-                            <h1 class="w-full h-[2rem] px-2">Appointment: <?=$row["appointmentno"]?> - <?=$row["doctor_name"]?> ( <?=$row["department_name"]?> ) เวลานัด <?=date("H:i", strtotime($row["makedatetime"]));?></h1>
+                            <h1 class="w-full h-[2rem] px-2">Appointment: <?= $row["appointmentno"] ?> - <?= $row["doctor_name"] ?> ( <?= $row["department_name"] ?> ) เวลานัด <?= date("H:i", strtotime($row["makedatetime"])); ?></h1>
                             <div class="w-full h-[2rem] bg-blue-100 flex justify-start text-blue-600 px-2 items-center">
-                            <?=date("H:i", strtotime($row["makedatetime"]));?> <?=$row["doctor_name"]?> ( <?=$row["department_name"]?> )
+                                <?= date("H:i", strtotime($row["makedatetime"])); ?> <?= $row["doctor_name"] ?> ( <?= $row["department_name"] ?> )
                             </div>
                             <div class="w-full h-[2rem] bg-blue-100 flex justify-start text-blue-600 px-2 items-center">
-                            <?=$row["procedure_name"]?>
+                                <?= $row["procedure_name"] ?>
                             </div>
                         </div>
                     </div>
