@@ -3,6 +3,9 @@
 
 mysqli_set_charset($conn, "utf8mb4");
 
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    mysqli_query($conn, "UPDATE nh_order SET status_code = 'RESULTED' WHERE order_number = '$_POST[order_number]'");
+}
 
 $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -58,7 +61,7 @@ $row = mysqli_fetch_assoc($rs1);
                                 <tbody>
                                     <tr class="border-b h-[2.5rem]">
                                         <td class="text-blue-600 text-center py-2 bg-blue-50">ชื่อ</td>
-                                        <td class="px-2"><?= $row["first_name"]." ".$row["last_name"]?> HN: <?=$row["hn"]?> VN: <?=$row["vn_reg"]?></td>
+                                        <td class="px-2"><?= $row["first_name"] . " " . $row["last_name"] ?> HN: <?= $row["hn"] ?> VN: <?= $row["vn_reg"] ?></td>
                                     </tr>
                                     <tr class="border-b h-[2.5rem]">
                                         <td class="text-blue-600 text-center py-2 bg-blue-50"></td>
@@ -87,7 +90,7 @@ $row = mysqli_fetch_assoc($rs1);
 
                         <div class="tab-content w-full flex flex-col justify-start gap-2 p-4 hidden" id="visit">
                             <div class="flex flex-col justify-start gap-2">
-                                <h2 class="text-blue-600 text-[18px] py-5 border-b border-dotted border-gray-200">Visit : <?=$row["visitdate"]?> </h2>
+                                <h2 class="text-blue-600 text-[18px] py-5 border-b border-dotted border-gray-200">Visit : <?= $row["visitdate"] ?> </h2>
                                 <table class="w-full text-[14px]">
                                     <thead>
                                         <tr class="border border-gray-200 bg-gray-50">
@@ -103,15 +106,15 @@ $row = mysqli_fetch_assoc($rs1);
                                     <tbody>
                                         <tr class="border-x border-b border-gray-200">
                                             <td class="p-3 text-start border">
-                                                <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request"><a href="../labresulte/lab_request.php">เพิ่ม</a></button>
+                                                <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request"><a href="../labresulte/lab_request.php?hn=<?= $_GET["hn"] ?>&vn=<?= $row["vn_reg"] ?>&visitdate=<?= $_GET["visitdate"] ?>&doctor_id=<?= $row["doctor_id"] ?>">เพิ่ม</a></button>
                                             </td>
-                                            <td class="p-3 text-start border"><?=$row["vn_reg"]?></td>
-                                            <td class="p-3 text-start border"><?=$row["appointmentno"]?></td>
-                                            <td class="p-3 text-start border"><?=$row["doctor_name"]?></td>
-                                            <td class="p-3 text-start border"><?=$row["department_name"]?></td>
-                                            <td class="p-3 text-start border"><?=$row["appointment_type"]?></td>
-                                            <td class="p-3 text-start border"><?=$row["prescriptionref"]?></td>
-                                
+                                            <td class="p-3 text-start border"><?= $row["vn_reg"] ?></td>
+                                            <td class="p-3 text-start border"><?= $row["appointmentno"] . "_1" ?></td>
+                                            <td class="p-3 text-start border"><?= $row["doctor_name"] ?></td>
+                                            <td class="p-3 text-start border"><?= $row["department_name"] ?></td>
+                                            <td class="p-3 text-start border"><?= $row["appointment_type"] ?></td>
+                                            <td class="p-3 text-start border"><?= $row["prescriptionref"] ?></td>
+
                                         </tr>
                                     </tbody>
                                 </table>
@@ -137,14 +140,14 @@ $row = mysqli_fetch_assoc($rs1);
                                             <td class="p-3 text-start border">
                                                 <button class="rounded-[5px] bg-red-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เคลียร์</button>
                                             </td>
-                                            <td class="p-3 text-start border">001</td>
-                                            <td class="p-3 text-start border">20250224-002</td>
-                                            <td class="p-3 text-start border">นพ.สมบัติ ตันโชติกุล</td>
-                                            <td class="p-3 text-start border">09:15</td>
-                                            <td class="p-3 text-start border">ตรวจ OPD</td>
-                                            <td class="p-3 text-start border">MASพบแพทย์, WARD ( OPD-Day Surgery)</td>
+                                            <td class="p-3 text-start border"><?= $row["vn_reg"] ?></td>
+                                            <td class="p-3 text-start border"><?= $row["appointmentno"] ?></td>
+                                            <td class="p-3 text-start border"><?= $row["doctor_name"] ?></td>
+                                            <td class="p-3 text-start border"><?= date('H:i', strtotime($row["makedatetime"])) ?></td>
+                                            <td class="p-3 text-start border"><?= $row["appointment_type"] ?></td>
+                                            <td class="p-3 text-start border"><?= $row["department_name"] ?></td>
                                             <td class="p-3 text-start border"></td>
-                                            <td class="p-3 text-start border">Observe</td>
+                                            <td class="p-3 text-start border"><?= $row["procedure_name"] ?></td>
 
                                         </tr>
                                     </tbody>
@@ -152,7 +155,7 @@ $row = mysqli_fetch_assoc($rs1);
                             </div>
                             <div class="flex flex-col justify-start gap-2">
                                 <h2 class="text-blue-600 text-[18px] py-5 border-b border-dotted border-gray-200">Service Point Data </h2>
-                                <table class="w-full text-[14px]">
+                                <table hidden class="w-full text-[14px]">
                                     <thead>
                                         <tr class="border border-gray-200 bg-gray-50">
                                             <th class="p-3 text-start border"></th>
@@ -192,6 +195,36 @@ $row = mysqli_fetch_assoc($rs1);
                             </div>
                             <div class="flex flex-col justify-start gap-2">
                                 <h2 class="text-blue-600 text-[18px] py-5 border-b border-dotted border-gray-200">N-health Lab Request </h2>
+                                <?php
+                                $visitdate_1 = date('Y-m-d', strtotime($_GET["visitdate"]));
+                                $sql_nh = "
+SELECT 
+    t1.*,
+    t2.doctor_name,
+    t3.lab_name,
+    t3.estimate_time,
+    t4.appuser_name AS a_name,
+    t4.appuser_lname AS a_lname,
+    t5.*
+FROM
+    nh_order t1
+        LEFT OUTER JOIN
+    doctor t2 ON t1.doctor_code = t2.doctor_code
+        LEFT OUTER JOIN
+    nh_lab t3 ON t1.nh_lab_code = t3.lab_code
+        LEFT OUTER JOIN
+    appuser t4 ON t1.accept_by = t4.appuser_id
+        LEFT OUTER JOIN
+    lab_sample_type t5 ON t3.lab_sample_type_id = t5.lab_sample_type_id
+WHERE
+    hn = '$_GET[hn]' AND vn = '$row[vn_reg]'
+        AND visitdate = '$visitdate_1'
+ORDER BY nh_order_id ASC
+";
+
+                                $rs1_order = mysqli_query($conn, $sql_nh);
+
+                                ?>
                                 <table class="w-full text-[14px]">
                                     <thead>
                                         <tr class="border border-gray-200 bg-gray-50">
@@ -210,35 +243,42 @@ $row = mysqli_fetch_assoc($rs1);
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr class="border-x border-b border-gray-200">
-                                            <td class="p-3 text-start border">
-                                                <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เช็คผล</button>
-                                            </td>
-                                            <td class="p-3 text-start border">NH00003</td>
-                                            <td class="p-3 text-start border">6800011</td>
-                                            <td class="p-3 text-start border">3120 : นพ.สมบัติ ตันโชติกุล</td>
-                                            <td class="p-3 text-start border">A010 : Complete Blood Count</td>
-                                            <td class="p-3 text-start border">25/02/2025 16:18</td>
-                                            <td class="p-3 text-start border">25/02/2025 16:18 <button class="bg-blue-500 p-2 text-white m-1 rounded-[5px]"><a href="../labresulte/lab_request_edit.php">Edit</a></button></td>
-                                            <td class="p-3 text-start border"></td>
-                                            <td class="p-3 text-start border">1 Day</td>
-                                            <td class="p-3 text-start border">
-                                                <p class="text-green-500">
-                                                    <span class="bg-gray-500 text-white text-sm font-semibold px-3 py-1 ">
-                                                        New
-                                                    </span>
+                                        <?php while ($row_order = mysqli_fetch_array($rs1_order)) { ?>
+                                            <tr class="border-x border-b border-gray-200">
+                                                <td class="p-3 text-start border">
+                                                    <?php if ($row_order["status_code"] == "RESULTED") { ?>
+                                                        <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เช็คผล</button>
+                                                    <?php } ?>
+                                                </td>
+                                                <td class="p-3 text-start border"><?= $row_order["hn"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["order_number"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row["doctor_name"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["nh_lab_code"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["create_date"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["collect_date"] ?> <?= $row_order["collect_time"] ?> <button class="bg-blue-500 p-2 text-white m-1 rounded-[5px]"><a href="../labresulte/lab_request_edit.php">Edit</a></button></td>
+                                                <td class="p-3 text-start border"><?= $row_order["status_code"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["estimate_time"] ?></td>
+                                                <td class="p-3 text-start border">
+                                                    <p class="text-green-500">
+                                                        <span class="bg-gray-500 text-white text-sm font-semibold px-3 py-1 ">
+                                                            <?= $row_order["status_code"] ?>
+                                                        </span>
 
-                                                </p>
-                                            </td>
-                                            <td class="p-3 text-start border">Close Visit Ref</td>
-                                            <td class="p-3 text-start flex justify-center items-center gap-2">
-                                                <?php if (1 > 2) { ?>
-                                                    <button class="bg-pink-500 text-white p-2">Send</button>
-                                                <?php } else { ?>
-                                                    <button onclick="openModal()" class="bg-green-500 text-white p-2">Verify</button>
-                                                <?php } ?>
-                                            </td>
-                                        </tr>
+                                                    </p>
+                                                </td>
+                                                <td class="p-3 text-start border"><?= $row_order["accep_by"] ?></td>
+                                                <td class="p-3 text-start flex justify-center items-center gap-2">
+                                                    <?php if ($row_order["status_code"] == "New") { ?>
+                                                        <form action="" method="post">
+                                                            <input hidden type="text" name="order_number" value="<?= $row_order["order_number"] ?>">
+                                                            <button type="submit" class="bg-pink-500 text-white p-2">Send</button>
+                                                        </form>
+                                                    <?php } else { ?>
+                                                        <button onclick="openModal()" class="bg-green-500 text-white p-2">Verify</button>
+                                                    <?php } ?>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                     </tbody>
                                 </table>
                             </div>
