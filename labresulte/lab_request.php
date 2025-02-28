@@ -8,7 +8,7 @@ $visitdate = date('Y-m-d', strtotime($_GET["visitdate"]));
 $create_date = date("Y-m-d H:i:s");
 $status_code = "New";
 if ($_POST) {
-    $order_number = "NH" . str_pad($nh_order_id, 5, "0", STR_PAD_LEFT);
+    $order_number = "NH" . (str_pad($hn, 5, "0", STR_PAD_LEFT)+date("His"));
     mysqli_set_charset($conn, "utf8mb4");
 
     $sql = "INSERT INTO nh_order (order_number, hn, vn, visitdate, doctor_code, nh_lab_code, create_date, status_code, collect_date, collect_time) 

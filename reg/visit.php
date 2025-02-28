@@ -3,9 +3,13 @@
 
 mysqli_set_charset($conn, "utf8mb4");
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["MM_update"] == "from1") {
+    mysqli_query($conn, "UPDATE nh_order SET status_code = 'Waiting' WHERE order_number = '$_POST[order_number]'");
+}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["MM_update"] == "from2") {
     mysqli_query($conn, "UPDATE nh_order SET status_code = 'RESULTED' WHERE order_number = '$_POST[order_number]'");
 }
+
 
 $limit = 10;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -138,7 +142,7 @@ $row = mysqli_fetch_assoc($rs1);
                                     <tbody>
                                         <tr class="border-x border-b border-gray-200">
                                             <td class="p-3 text-start border">
-                                                <button class="rounded-[5px] bg-red-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เคลียร์</button>
+                                                <button hidden class="rounded-[5px] bg-red-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เคลียร์</button>
                                             </td>
                                             <td class="p-3 text-start border"><?= $row["vn_reg"] ?></td>
                                             <td class="p-3 text-start border"><?= $row["appointmentno"] ?></td>
@@ -246,14 +250,18 @@ ORDER BY nh_order_id ASC
                                         <?php while ($row_order = mysqli_fetch_array($rs1_order)) { ?>
                                             <tr class="border-x border-b border-gray-200">
                                                 <td class="p-3 text-start border">
-                                                    <?php if ($row_order["status_code"] == "RESULTED") { ?>
-                                                        <button class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เช็คผล</button>
+                                                    <?php if ($row_order["status_code"] == "Waiting") { ?>
+                                                        <form action="" method="post">
+                                                            <input hidden type="text" name="order_number" value="<?= $row_order["order_number"] ?>">
+                                                            <input hidden type="text" name="MM_update" value="from2">
+                                                            <button type="submit" class="rounded-[5px] bg-blue-500 px-5 h-fit py-1 mx-2 text-white" title="Add N-Health Lab Request">เช็คผล</button>
+                                                        </form>
                                                     <?php } ?>
                                                 </td>
-                                                <td class="p-3 text-start border"><?= $row_order["hn"] ?></td>
                                                 <td class="p-3 text-start border"><?= $row_order["order_number"] ?></td>
-                                                <td class="p-3 text-start border"><?= $row["doctor_name"] ?></td>
-                                                <td class="p-3 text-start border"><?= $row_order["nh_lab_code"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["hn"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row["doctor_code"] ?> : <?= $row["doctor_name"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["nh_lab_code"] ?> : <?=$row_order["lab_name"] ?></td>
                                                 <td class="p-3 text-start border"><?= $row_order["create_date"] ?></td>
                                                 <td class="p-3 text-start border"><?= $row_order["collect_date"] ?> <?= $row_order["collect_time"] ?> <button class="bg-blue-500 p-2 text-white m-1 rounded-[5px]"><a href="../labresulte/lab_request_edit.php">Edit</a></button></td>
                                                 <td class="p-3 text-start border"><?= $row_order["status_code"] ?></td>
@@ -269,11 +277,12 @@ ORDER BY nh_order_id ASC
                                                 <td class="p-3 text-start border"><?= $row_order["accep_by"] ?></td>
                                                 <td class="p-3 text-start flex justify-center items-center gap-2">
                                                     <?php if ($row_order["status_code"] == "New") { ?>
-                                                        <form action="" method="post">
+                                                        <form name="from_1" action="" method="post">
                                                             <input hidden type="text" name="order_number" value="<?= $row_order["order_number"] ?>">
+                                                            <input hidden type="text" name="MM_update" value="from1">
                                                             <button type="submit" class="bg-pink-500 text-white p-2">Send</button>
                                                         </form>
-                                                    <?php } else { ?>
+                                                    <?php } else if ($row_order["status_code"] == "RESULTED") { ?>
                                                         <button onclick="openModal()" class="bg-green-500 text-white p-2">Verify</button>
                                                     <?php } ?>
                                                 </td>

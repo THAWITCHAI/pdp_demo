@@ -62,7 +62,7 @@
                                 <tbody>
                                     <?php
                                     mysqli_set_charset($conn, "utf8mb4");
-                                    $rs1 = mysqli_query($conn, "SELECT * FROM patient;");
+                                    $rs1 = mysqli_query($conn, "SELECT * FROM patient WHERE 1=1;");
                                     while ($row = mysqli_fetch_assoc($rs1)) {
                                     ?>
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
