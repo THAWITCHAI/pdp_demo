@@ -56,7 +56,7 @@
                                         <th scope="col" class="px-1 py-4 border border-gray-300 ">Tel</th>
                                         <th scope="col" class="px-1 py-4 border border-gray-300 ">Mobile</th>
                                         <th scope="col" class="px-1 py-4 border border-gray-300 ">Address</th>
-                                        <th scope="col" class="px-1 py-4 border border-gray-300 "></th>
+                                        <!-- <th scope="col" class="px-1 py-4 border border-gray-300 "></th> -->
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -97,9 +97,9 @@
                                             <td class="px-1 py-4 border border-gray-300">
                                                 <?= $row["address"] ?>
                                             </td>
-                                            <td class="px-1 py-4 border border-gray-300">
+                                            <!-- <td class="px-1 py-4 border border-gray-300">
                                                 <button class="border border-red-600 hover:bg-red-600 text-[14px] px-2 py-1 bg-red-400 text-white cursor-pointer">Delete</button>
-                                            </td>
+                                            </td> -->
                                         </tr>
                                     <?php } ?>
                                 </tbody>
