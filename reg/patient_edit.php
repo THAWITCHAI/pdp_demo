@@ -18,6 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $ref_passport = $_POST['ref_passport'];
     $patient_type = $_POST['patient_type'];
     $address = $_POST['address'];
+    $hn = "6".(date("ymd")+date('His'));
 
     $sql = "UPDATE patient SET
                 hn = $hn,
