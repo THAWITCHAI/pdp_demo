@@ -201,12 +201,12 @@ $row = mysqli_fetch_assoc($rs1);
                                 <h2 class="text-blue-600 text-[18px] py-5 border-b border-dotted border-gray-200">N-health Lab Request </h2>
                                 <?php
                                 $visitdate_1 = date('Y-m-d', strtotime($_GET["visitdate"]));
-                                $sql_nh = "
+                                 $sql_nh = "
 SELECT 
     t1.*,
     t2.doctor_name,
     t3.lab_name,
-    t3.estimate_time,
+    t3.*,
     t4.appuser_name AS a_name,
     t4.appuser_lname AS a_lname,
     t5.*
@@ -219,7 +219,7 @@ FROM
         LEFT OUTER JOIN
     appuser t4 ON t1.accept_by = t4.appuser_id
         LEFT OUTER JOIN
-    lab_sample_type t5 ON t3.lab_sample_type_id = t5.lab_sample_type_id
+    lab_sample_type t5 ON t3.lab_sample_type = t5.lab_sample_type_id
 WHERE
     hn = '$_GET[hn]' AND vn = '$row[vn_reg]'
         AND visitdate = '$visitdate_1'
@@ -263,9 +263,9 @@ ORDER BY nh_order_id ASC
                                                 <td class="p-3 text-start border"><?= $row["doctor_code"] ?> : <?= $row["doctor_name"] ?></td>
                                                 <td class="p-3 text-start border"><?= $row_order["nh_lab_code"] ?> : <?=$row_order["lab_name"] ?></td>
                                                 <td class="p-3 text-start border"><?= $row_order["create_date"] ?></td>
-                                                <td class="p-3 text-start border"><?= $row_order["collect_date"] ?> <?= $row_order["collect_time"] ?> <button class="bg-blue-500 p-2 text-white m-1 rounded-[5px]"><a href="../labresulte/lab_request_edit.php">Edit</a></button></td>
+                                                <td class="p-3 text-start border"><?= $row_order["collect_date"] ?> <?= $row_order["collect_time"] ?> <button class="bg-blue-500 p-2 text-white m-1 rounded-[5px]"><a href="../labresulte/lab_request_edit.php?order_number=<?= $row_order["order_number"]?>&hn=<?=$row_order["hn"]?>&visitdate=<?=$_GET["visitdate"]?>">Edit</a></button></td>
                                                 <td class="p-3 text-start border"><?= $row_order["status_code"] ?></td>
-                                                <td class="p-3 text-start border"><?= $row_order["estimate_time"] ?></td>
+                                                <td class="p-3 text-start border"><?= $row_order["lab_estimate_time"] ?></td>
                                                 <td class="p-3 text-start border">
                                                     <p class="text-green-500">
                                                         <span class="bg-gray-500 text-white text-sm font-semibold px-3 py-1 ">
