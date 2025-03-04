@@ -51,7 +51,7 @@ $rs1 = mysqli_query($conn, "SELECT *
                 <div class="w-full h-fit p-3">
                     <h1 class="text-xl text-blue-600 font-light mb-2">VN By Appointment</h1>
                     <hr class="text-gray-300">
-                    <form method="GET" class="w-full p-2 ring-1 ring-gray-300 my-5 flex flex-col justify-center items-center gap-2">
+                    <form hidden method="GET" class="w-full p-2 ring-1 ring-gray-300 my-5 flex flex-col justify-center items-center gap-2">
                         <h1 class="w-full p-2 bg-[linear-gradient(to bottom,#ffffff 0%,#eeeeee 100%)] text-blue-500 shadow-xs">Search</h1>
                         <div class="w-full flex gap-10 justify-center items-center p-2">
                             <input name="hn" placeholder="HN" type="text" class="text-sm h-[2rem] outline-none px-2 rounede-xs  w-full border border-gray-300">
@@ -78,20 +78,18 @@ $rs1 = mysqli_query($conn, "SELECT *
                         </div>
                     </form>
                     <!-- Table -->
-                    <div class="w-full h-fit overflow-x-auto">
+                    <div class="w-full h-fit overflow-x-auto my-2">
                         <table class="min-w-full text-sm text-left text-gray-500">
                             <thead class="bg-gray-100 text-xs text-gray-700 uppercase">
                                 <tr>
                                     <th class="px-1 py-4 border border-gray-300"></th>
                                     <th class="px-1 py-4 border border-gray-300">Status</th>
                                     <th class="px-1 py-4 border border-gray-300">App Date</th>
-                                    <th class="px-1 py-4 border border-gray-300">Req Time</th>
                                     <th class="px-1 py-4 border border-gray-300">App Time</th>
                                     <th class="px-1 py-4 border border-gray-300">Appointment No.</th>
                                     <th class="px-1 py-4 border border-gray-300">HN</th>
                                     <th class="px-1 py-4 border border-gray-300">VN</th>
                                     <th class="px-1 py-4 border border-gray-300">Patient</th>
-                                    <th class="px-1 py-4 border border-gray-300">Tel</th>
                                     <th class="px-1 py-4 border border-gray-300">Mobile</th>
                                     <th class="px-1 py-4 border border-gray-300">Birth Date</th>
                                     <th class="px-1 py-4 border border-gray-300">Doctor</th>
@@ -110,13 +108,11 @@ $rs1 = mysqli_query($conn, "SELECT *
                                         </td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["reg_status"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= date('d/m/Y', strtotime($row["makedatetime"])) ?></td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= $row["ageyear"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= date('H:i:s', strtotime($row["makedatetime"])) ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["appointmentno"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["hn"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["vn_reg"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["title"] . " " . $row["first_name"] . " " . $row["last_name"] ?></td>
-                                        <td class="px-1 py-4 border border-gray-300"><?= $row["tel"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["mobilephoneno"] ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= date('d/m/Y', strtotime($row["birth_date"])) ?></td>
                                         <td class="px-1 py-4 border border-gray-300"><?= $row["doctor_name"] ?></td>

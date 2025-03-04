@@ -6,7 +6,7 @@ if (!isset($_SESSION['username'])) {
 }
 ?>
 <div class="w-full h-[7%] pl-4 justify-between flex items-center bg-[#438eb9]">
-    <p class="text-white font-medium text-lg">PDP System Rutnin-Eye Hopital</p>
+    <p class="text-white font-medium text-lg">W&Y System Amphetamine</p>
     <div class="relative bg-[#62a8d1] w-[10rem] h-full flex justify-between gap-1 items-center px-2">
         <div class="w-1/2 h-full flex justify-center items-center">
             <img src="../assets/images/user_white.png" width="40" height="40" alt="">
