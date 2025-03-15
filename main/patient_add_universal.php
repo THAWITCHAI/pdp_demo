@@ -53,7 +53,7 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    include('../config/db_connect.php');
+                                    // include("../config/db_connect.php");
                                     mysqli_set_charset($conn, "utf8mb4");
                                     
                                     $where = "WHERE 1=1";
