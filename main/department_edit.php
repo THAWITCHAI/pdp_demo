@@ -11,6 +11,7 @@ if ($_POST) {
 
 <!DOCTYPE html>
 <html lang="en">
+    <script src="https://cdn.tailwindcss.com"></script>
 <body>
     <div class="w-full h-screen">
         <?php include('../assets/html/navbar' . '.php'); ?>

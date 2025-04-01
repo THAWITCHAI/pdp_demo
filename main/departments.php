@@ -15,7 +15,7 @@ WHERE
     $rs1 = mysqli_query($conn, "SELECT * FROM department");
 }
 ?>
-
+<script src="https://cdn.tailwindcss.com"></script>
 <body>
     <div class="w-full h-screen">
         <?php include('../assets/html/navbar' . '.php'); ?>

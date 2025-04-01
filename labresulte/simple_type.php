@@ -1,9 +1,11 @@
 <?php include('../assets/html/header' . '.php'); ?>
 <?php
-
+$whext = "";
 mysqli_set_charset($conn, "utf8mb4");
-if (($tmp = $_GET["lab_sample_type"]) != '')
-    $whext .= " AND lab_sample_type like '%$tmp%'";
+if (isset($_GET["lab_sample_type"]) && $_GET["lab_sample_type"] !== '') {
+    $tmp = $_GET["lab_sample_type"];
+    $whext .= " AND lab_sample_type LIKE '%$tmp%'";
+}
 
 $limit = 10;
 $page = isset($_GET['page']) ? (int) $_GET['page'] : 1;
@@ -51,9 +53,9 @@ $rs1 = mysqli_query($conn, "SELECT *
                             class="w-full p-2 bg-[linear-gradient(to bottom,#ffffff 0%,#eeeeee 100%)] text-blue-500 shadow-xs">
                             Search</h1>
                         <div class="w-full flex gap-10 justify-center items-center p-2">
-                            <input value="<?= $_GET["lab_sample_type"] ?>" name="lab_sample_type" placeholder="name"
-                                type="text"
-                                class="border border-gray-300 text-sm   h-[2rem] outline-none px-2 rounede-xs  w-full">
+                            <input value="<?= isset($_GET["lab_sample_type"]) ? htmlspecialchars($_GET["lab_sample_type"]) : '' ?>"
+                                name="lab_sample_type" placeholder="name"
+                                type="text" class="border border-gray-300 text-sm h-[2rem] outline-none px-2 rounede-xs w-full">
                             <input disabled name="sex" placeholder="" type="text"
                                 class="text-sm   h-[2rem] outline-none px-2 rounede-xs  w-full">
                             <input disabled name="id_card" type="text"

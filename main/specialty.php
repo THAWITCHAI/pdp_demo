@@ -17,6 +17,7 @@ FROM
     specialty");
 }
 ?>
+    <script src="https://cdn.tailwindcss.com"></script>
 
 <body>
     <div class="w-full h-screen">

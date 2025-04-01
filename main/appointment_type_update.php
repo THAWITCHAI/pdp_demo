@@ -24,7 +24,7 @@ if ($_POST) {
 <!DOCTYPE html>
 <html lang="en">
 <?php include('../assets/html/header' . '.php'); ?>
-
+<script src="https://cdn.tailwindcss.com"></script>
 <body>
     <div class="w-full h-screen">
         <?php include('../assets/html/navbar' . '.php'); ?>

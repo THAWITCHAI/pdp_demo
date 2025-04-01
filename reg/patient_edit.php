@@ -72,7 +72,7 @@ $rs1 = mysqli_query($conn, $sql);
 $row = mysqli_fetch_assoc($rs1);
 
 ?>
-
+<script src="https://cdn.tailwindcss.com"></script>
 <body>
     <div class="w-full h-screen">
         <?php include('../assets/html/navbar' . '.php'); ?>

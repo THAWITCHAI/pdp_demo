@@ -261,7 +261,6 @@ ORDER BY nh_order_id ASC
                                             <th class="p-3 text-start border">Collect Date</th>
                                             <th class="p-3 text-start border">Estimate Time (Day)</th>
                                             <th class="p-3 text-start border">Status</th>
-                                            <th class="p-3 text-start border">Accept By</th>
                                             <th class="p-3 text-start border"></th>
                                         </tr>
                                     </thead>
@@ -313,7 +312,6 @@ ORDER BY nh_order_id ASC
 
                                                     </p>
                                                 </td>
-                                                <td class="p-3 text-start border"><?= $row_order["accep_by"] ?></td>
                                                 <td class="p-3 text-start flex justify-center items-center gap-2">
                                                     <?php if ($row_order["status_code"] == "New") { ?>
                                                         <form name="from_1" action="" method="post">
@@ -324,8 +322,8 @@ ORDER BY nh_order_id ASC
                                                                 class="bg-pink-500 text-white p-2">Send</button>
                                                         </form>
                                                     <?php } else if ($row_order["status_code"] == "RESULTED") { ?>
-                                                            <button onclick="openModal()"
-                                                                class="bg-green-500 text-white p-2">Verify</button>
+                                                        <button onclick="openModal()"
+                                                            class="bg-green-500 text-white p-2">Verify</button>
                                                     <?php } ?>
                                                 </td>
                                             </tr>
